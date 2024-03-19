@@ -8,19 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Conges extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'status',
         'type_id'
-
     ];
+
     public function typeConges()
     {
         return $this->belongsTo(TypeConges::class);
     }
-    public function Employees()
+
+    public function employees()
     {
-        return $this->belongsToMany(Conges::class,'employees_conges',
-            'employee_id','conges_id')
-            ->withPivot('datedebut','datefin');
+        return $this->belongsToMany(Employee::class, 'employees_conges', 'conges_id', 'employee_id')
+            ->withPivot('datedebut', 'datefin');
     }
 }

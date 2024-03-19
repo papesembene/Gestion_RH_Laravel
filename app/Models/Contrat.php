@@ -8,18 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Contrat extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'salaire',
         'type_id',
     ];
+
     public function typeContrat()
     {
         return $this->belongsTo(TypeContrat::class);
     }
-    public function Employees()
+
+    public function employees()
     {
-        return $this->belongsToMany(Contrat::class,'employees_contrats',
-            'employee_id','contrat_id')
-            ->withPivot('datedebut','datefin');
+        return $this->belongsToMany(Employee::class, 'employees_contrats', 'contrat_id', 'employee_id')
+            ->withPivot('datedebut', 'datefin');
     }
 }

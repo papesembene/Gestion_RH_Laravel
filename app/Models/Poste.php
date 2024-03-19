@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Poste extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'nom',
-    ];
+    protected $fillable = ['nom'];
 
+    public function departements()
+    {
+        return $this->belongsToMany(Departement::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

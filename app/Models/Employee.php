@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'nom',
         'prenom',
@@ -24,38 +25,34 @@ class Employee extends Model
         'dept_id',
         'user_id',
     ];
-    public function Poste()
+
+    public function poste()
     {
         return $this->belongsTo(Poste::class);
     }
-    public function Departement()
+
+    public function departement()
     {
         return $this->belongsTo(Departement::class);
     }
-    public function Contrats()
+
+    public function contrats()
     {
-        return $this->belongsToMany(Contrat::class,'employees_contrats',
-            'employee_id','contrat_id')
-            ->withPivot('datedebut','datefin');
-    }
-    public function Conges()
-    {
-        return $this->belongsToMany(Conges::class,'employees_conges',
-            'employee_id','conges_id')
-            ->withPivot('datedebut','datefin');
-    }
-    public function Talents()
-    {
-        return $this->belongsToMany(Talent::class,'employees_talents',
-            'employee_id','talent_id');
-    }
-    public function Abscences()
-    {
-        return $this->belongsToMany(Conges::class,'employees_abscences',
-            'employee_id','abscences_id')
-            ->withPivot('datedebut','datefin');
+        return $this->belongsToMany(Contrat::class)->withPivot('datedebut', 'datefin');
     }
 
+    public function conges()
+    {
+        return $this->belongsToMany(Conge::class)->withPivot('datedebut', 'datefin');
+    }
 
+    public function talents()
+    {
+        return $this->belongsToMany(Talent::class);
+    }
 
+    public function absences()
+    {
+        return $this->belongsToMany(Absence::class)->withPivot('datedebut', 'datefin');
+    }
 }

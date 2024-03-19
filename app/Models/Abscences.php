@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Abscences extends Model
+class Absences extends Model
 {
-    use HasFactory;
+    protected $fillable = ['description', 'datedebut', 'datefin'];
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

@@ -8,15 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Talent extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'langue',
         'competence',
         'habilitation',
         'evaluation',
     ];
-    public function Employees()
+
+    public function employees()
     {
-        return $this->belongsToMany(Talent::class,'employees_talents',
-            'employee_id','talent_id');
+        return $this->belongsToMany(Employee::class, 'employees_talents', 'talent_id', 'employee_id');
     }
 }
