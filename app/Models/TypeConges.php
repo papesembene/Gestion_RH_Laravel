@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TypeConges extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nom',
+    ];
+
 }

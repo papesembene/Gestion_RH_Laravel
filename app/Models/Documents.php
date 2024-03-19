@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Documents extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'type',
+        'fichier',
+    ];
 }
