@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contrats_tables', function (Blueprint $table) {
+        Schema::create('contrats', function (Blueprint $table) {
             $table->id();
+            $table->integer('salaire');
+            $table->foreignId('type_id')->constrained('type_contrats')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contrats_tables');
+        Schema::dropIfExists('contrats');
     }
 };

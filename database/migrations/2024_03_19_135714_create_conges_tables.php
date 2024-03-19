@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conges_tables', function (Blueprint $table) {
+        Schema::create('conges', function (Blueprint $table) {
             $table->id();
+            $table->string('status');
+            $table->foreignId('type_id')->constrained('type_conges')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conges_tables');
+        Schema::dropIfExists('conges');
     }
 };
