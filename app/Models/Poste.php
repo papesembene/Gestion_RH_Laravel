@@ -10,7 +10,7 @@ class Poste extends Model
 
     public function departements()
     {
-        return $this->belongsToMany(Departement::class);
+        return $this->belongsTo(Departement::class);
     }
 
     public function employees()

@@ -11,5 +11,10 @@ class Documents extends Model
     protected $fillable = [
         'type',
         'fichier',
+        'employee_id'
     ];
+    public function employees()
+    {
+        return $this->belongsTo(Employee::class , );
+    }
 }

@@ -11,7 +11,10 @@ class Conges extends Model
 
     protected $fillable = [
         'status',
-        'type_id'
+        'type_id',
+        'employee_id',
+        'datedebut',
+        'datefin'
     ];
 
     public function typeConges()
@@ -21,7 +24,6 @@ class Conges extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employees_conges', 'conges_id', 'employee_id')
-            ->withPivot('datedebut', 'datefin');
+        return $this->belongsTo(Employee::class , );
     }
 }

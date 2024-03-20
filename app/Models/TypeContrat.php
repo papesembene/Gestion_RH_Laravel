@@ -8,8 +8,5 @@ class TypeContrat extends Model
 {
     protected $fillable = ['nom'];
 
-    public function contrats()
-    {
-        return $this->hasMany(Contrat::class);
-    }
+
 }

@@ -8,8 +8,5 @@ class TypeConges extends Model
 {
     protected $fillable = ['nom'];
 
-    public function conges()
-    {
-        return $this->hasMany(Conges::class);
-    }
+
 }

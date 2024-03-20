@@ -18,6 +18,6 @@ class Talent extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employees_talents', 'talent_id', 'employee_id');
+        return $this->hasMany(Employee::class, 'employee_id', );
     }
 }

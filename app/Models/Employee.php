@@ -36,23 +36,11 @@ class Employee extends Model
         return $this->belongsTo(Departement::class);
     }
 
-    public function contrats()
-    {
-        return $this->belongsToMany(Contrat::class)->withPivot('datedebut', 'datefin');
-    }
-
-    public function conges()
-    {
-        return $this->belongsToMany(Conge::class)->withPivot('datedebut', 'datefin');
-    }
 
     public function talents()
     {
-        return $this->belongsToMany(Talent::class,'employees_talents');
+        return $this->hasMany(Talent::class,'talend_id');
     }
 
-    public function absences()
-    {
-        return $this->belongsToMany(Absence::class)->withPivot('datedebut', 'datefin');
-    }
+
 }

@@ -15,6 +15,6 @@ class Departement extends Model
 
     public function postes()
     {
-        return $this->belongsToMany(Poste::class);
+        return $this->hasMany(Poste::class);
     }
 }

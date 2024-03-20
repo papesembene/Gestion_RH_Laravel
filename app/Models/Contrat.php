@@ -12,6 +12,9 @@ class Contrat extends Model
     protected $fillable = [
         'salaire',
         'type_id',
+        'employee_id',
+        'datedebut',
+         'datefin'
     ];
 
     public function typeContrat()
