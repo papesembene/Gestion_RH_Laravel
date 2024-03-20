@@ -39,5 +39,6 @@ Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
     'postes' => \App\Http\Controllers\PosteController::class,
+    'depts' => \App\Http\Controllers\DeptController::class,
 
 ]);
