@@ -21,7 +21,6 @@ class Contrat extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class, 'employees_contrats', 'contrat_id', 'employee_id')
-            ->withPivot('datedebut', 'datefin');
+        return $this->belongsTo(Employee::class,);
     }
 }

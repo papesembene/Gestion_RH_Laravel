@@ -48,7 +48,7 @@ class Employee extends Model
 
     public function talents()
     {
-        return $this->belongsToMany(Talent::class);
+        return $this->belongsToMany(Talent::class,'employees_talents');
     }
 
     public function absences()
