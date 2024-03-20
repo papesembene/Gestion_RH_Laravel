@@ -2,63 +2,99 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poste;
 use Illuminate\Http\Request;
 
 class PosteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des postes.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        //
+        $postes = Poste::Paginate(5);
+        return view('postes.index', compact('postes'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'un poste.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('postes.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre un nouveau poste dans la base de données.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        Poste::create($request->all());
+
+        return redirect()->route('postes.index')->with('success', 'Le poste a été ajouté avec succès.');
     }
 
     /**
-     * Display the specified resource.
+     * Affiche les détails d'un poste.
+     *
+     * @param  \App\Models\Poste  $poste
+     * @return \Illuminate\View\View
      */
-    public function show(string $id)
+    public function show(Poste $poste)
     {
-        //
+        return view('postes.show', compact('poste'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire de modification d'un poste.
+     *
+     * @param  \App\Models\Poste  $poste
+     * @return \Illuminate\View\View
      */
-    public function edit(string $id)
+    public function edit(Poste $poste)
     {
-        //
+        return view('postes.edit', compact('poste'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour les informations d'un poste dans la base de données.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Poste  $poste
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Poste $poste)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        $poste->update($request->all());
+
+        return redirect()->route('postes.index')->with('success', 'Le poste a été modifié avec succès.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime un poste de la base de données.
+     *
+     * @param  \App\Models\Poste  $poste
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $id)
+    public function destroy(Poste $poste)
     {
-        //
+        $poste->delete();
+
+        return redirect()->route('postes.index')->with('success', 'Le poste a été supprimé avec succès.');
     }
 }

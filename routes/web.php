@@ -38,5 +38,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resources([
     'roles' => RoleController::class,
     'users' => UserController::class,
+    'postes' => \App\Http\Controllers\PosteController::class,
 
 ]);
