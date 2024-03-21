@@ -17,7 +17,6 @@
                 <div class="card-body">
                     <form action="{{ route('employees.store') }}" method="post">
                         @csrf
-
                         <div class="mb-3 row">
                             <label for="nom" class="col-md-4 col-form-label text-md-end text-start">Nom</label>
                             <div class="col-md-6">
