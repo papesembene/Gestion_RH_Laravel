@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.template')
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8">
