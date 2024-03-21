@@ -19,7 +19,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::all();
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -164,15 +165,15 @@ class EmployeeController extends Controller
 
 
 
-
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function show($id)
     {
         $employee = Employee::findOrFail($id);
         return view('employees.show', compact('employee'));
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
