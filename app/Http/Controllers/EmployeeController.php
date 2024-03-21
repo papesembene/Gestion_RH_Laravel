@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class EmployeeController extends Controller
 {
@@ -19,7 +20,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employees.create'
+            , [
+                'roles' => Role::pluck('name')->all()
+            ]);
     }
 
     /**
