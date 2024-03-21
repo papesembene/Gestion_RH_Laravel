@@ -94,6 +94,34 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="CIN" class="col-md-4 col-form-label text-md-end text-start">CIN</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('CIN') is-invalid @enderror" id="CIN" name="CIN" value="{{ old('CIN') }}">
+                                @if ($errors->has('CIN'))
+                                    <span class="text-danger">{{ $errors->first('CIN') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="situation matrimoniale" class="col-md-4 col-form-label text-md-end text-start">Situation Matrimoiale</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('situation matrimoniale') is-invalid @enderror" id="situation matrimoniale" name="situation matrimoniale" value="{{ old('situation matrimoniale') }}">
+                                @if ($errors->has('situation matrimoniale'))
+                                    <span class="text-danger">{{ $errors->first('situation matrimoniale') }}</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="nbrEnfants" class="col-md-4 col-form-label text-md-end text-start">nombre d'Enfants</label>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control @error('nbrEnfants') is-invalid @enderror" id="nbrEnfants" name="nbrEnfants" value="{{ old('nbrEnfants') }}">
+                                @if ($errors->has('nbrEnfants'))
+                                    <span class="text-danger">{{ $errors->first('nbrEnfants') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="nationalite" class="col-md-4 col-form-label text-md-end text-start">Nationalite</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control @error('nationalite') is-invalid @enderror" id="nationalite" name="nationalite" value="{{ old('nationalite') }}">

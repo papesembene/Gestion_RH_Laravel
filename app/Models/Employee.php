@@ -38,6 +38,10 @@ class Employee extends Model
     {
         return $this->belongsTo(Departement::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 
     public function talents()
