@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->string('CIN');
-            $table->string('situation matrimoniale');
-            $table->integer('nbrEnfants');
+            $table->string('situation_matrimoniale')->nullable();
+            $table->integer('nbrEnfants')->nullable();
         });
     }
 

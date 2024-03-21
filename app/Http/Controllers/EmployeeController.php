@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Departement;
 use App\Models\Employee;
 use App\Models\Poste;
+use App\Models\User;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
@@ -34,8 +36,9 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   /* public function store(Request $request)
     {
+
         // Valider les données du formulaire
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
@@ -43,7 +46,7 @@ class EmployeeController extends Controller
             'sexe' => 'required|in:M,F',
             'adresse' => 'required|string|max:255',
             'telephone' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
+            'email' => 'required|string|email|max:255|unique',
             'datenaiss' => 'required|date',
             'lieunaiss' => 'required|string|max:255',
             'CIN' => 'required|string|max:255',
@@ -97,6 +100,70 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
+    public function store(Request $request)
+    {
+
+        // Valider les données du formulaire
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'sexe' => 'required|in:M,F',
+            'adresse' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'datenaiss' => 'required|date',
+            'lieunaiss' => 'required|string|max:255',
+            'CIN' => 'required|string|max:255',
+            'situation_matrimoniale' => 'required|string|max:255',
+            'nbrEnfants' => 'required|integer',
+            'nationalite' => 'required|string|max:255',
+            'dateembauche' => 'required|date',
+            'type' => 'required|string|in:Stagiaire,Sous Contrat',
+            'poste_id' => 'required|exists:postes,id',
+            'dept_id' => 'required|exists:departements,id',
+            'roles' => 'required|array',
+        ]);
+
+        // Créer un nouvel utilisateur
+        $user = new User([
+            'name' => $validatedData['prenom'] . ' ' . $validatedData['nom'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make('password'), // Temporaire, vous pouvez générer un mot de passe aléatoire ici
+        ]);
+        $user->save();
+
+        // Affecter le rôle à l'utilisateur
+        $user->assignRole($validatedData['roles']);
+
+        // Créer un nouvel employé associé à l'utilisateur
+        $employee = new Employee([
+            'nom' => $validatedData['nom'],
+            'prenom' => $validatedData['prenom'],
+            'sexe' => $validatedData['sexe'],
+            'adresse' => $validatedData['adresse'],
+            'phone' => $validatedData['phone'],
+            'email' => $validatedData['email'],
+            'datenaiss' => $validatedData['datenaiss'],
+            'lieunaiss' => $validatedData['lieunaiss'],
+            'CIN' => $validatedData['CIN'],
+            'situation_matrimoniale' => $validatedData['situation_matrimoniale'],
+            'nbrEnfants' => $validatedData['nbrEnfants'],
+            'nationalite' => $validatedData['nationalite'],
+            'dateembauche' => $validatedData['dateembauche'],
+            'type' => $validatedData['type'],
+            'poste_id' => $validatedData['poste_id'],
+            'dept_id' => $validatedData['dept_id'],
+            'user_id' => $user->id,
+        ]);
+        $employee->save();
+
+        // Rediriger avec un message de succès
+        return redirect()->route('employees.index')->with('success', 'Employee added successfully');
+    }
+
+
+
+
 
     public function show($id)
     {

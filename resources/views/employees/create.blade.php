@@ -40,8 +40,8 @@
                             <div class="col-md-6">
                                 <select class="form-control @error('sexe') is-invalid @enderror" id="sexe" name="sexe">
                                     <option>...</option>
-                                    <option value="M">Masculin</option>
-                                    <option value="F">Feminin</option>
+                                    <option value="M" {{ old('sexe') == 'M' ? 'selected' : '' }}>Masculin</option>
+                                    <option value="F" {{ old('sexe') == 'F' ? 'selected' : '' }}>Feminin</option>
                                 </select>
                                 @if ($errors->has('sexe'))
                                     <span class="text-danger">{{ $errors->first('sexe') }}</span>
@@ -60,7 +60,7 @@
                         <div class="mb-3 row">
                             <label for="telephone" class="col-md-4 col-form-label text-md-end text-start">Phone</label>
                             <div class="col-md-6">
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="" name="phone" value="{{ old('email') }}">
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="" name="phone" value="{{ old('phone') }}">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -105,13 +105,12 @@
                         <div class="mb-3 row">
                             <label for="situation matrimoniale" class="col-md-4 col-form-label text-md-end text-start">Situation Matrimoiale</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control @error('situation matrimoniale') is-invalid @enderror" id="situation matrimoniale" name="situation matrimoniale" value="{{ old('situation matrimoniale') }}">
-                                @if ($errors->has('situation matrimoniale'))
-                                    <span class="text-danger">{{ $errors->first('situation matrimoniale') }}</span>
+                                <input type="text" class="form-control @error('situation_matrimoniale') is-invalid @enderror" id="situation_matrimoniale" name="situation_matrimoniale" value="{{ old('situation_matrimoniale') }}">
+                                @if ($errors->has('situation_matrimoniale'))
+                                    <span class="text-danger">{{ $errors->first('situation_matrimoniale') }}</span>
                                 @endif
                             </div>
                         </div>
-
                         <div class="mb-3 row">
                             <label for="nbrEnfants" class="col-md-4 col-form-label text-md-end text-start">nombre d'Enfants</label>
                             <div class="col-md-6">
@@ -155,12 +154,12 @@
                         <div class="mb-3 row">
                             <label for="poste_id" class="col-md-4 col-form-label text-md-end text-start">Poste</label>
                             <div class="col-md-6">
-                                @foreach(\App\Models\Poste::all() as $poste)
-                                    <select class="form-control @error('poste_id') is-invalid @enderror" id="poste_id" name="poste_id">
-                                        <option>...</option>
+                                <select class="form-control @error('poste_id') is-invalid @enderror" id="poste_id" name="poste_id">
+                                    <option>...</option>
+                                    @foreach(\App\Models\Poste::all() as $poste)
                                         <option value="{{$poste->id}}">{{$poste->nom}}</option>
-                                    </select>
                                 @endforeach
+                                </select>
                                 @if ($errors->has('poste_id'))
                                     <span class="text-danger">{{ $errors->first('poste_id') }}</span>
                                 @endif
@@ -169,12 +168,12 @@
                         <div class="mb-3 row">
                             <label for="dept_id" class="col-md-4 col-form-label text-md-end text-start">Departement</label>
                             <div class="col-md-6">
-                                @foreach(\App\Models\Departement::all() as $dept)
-                                    <select class="form-control @error('dept_id') is-invalid @enderror" id="dept_id" name="dept_id">
-                                        <option>...</option>
+                                <select class="form-control @error('dept_id') is-invalid @enderror" id="dept_id" name="dept_id">
+                                    <option>...</option>
+                                    @foreach(\App\Models\Departement::all() as $dept)
                                         <option value="{{$dept->id}}">{{$dept->nom}}</option>
-                                    </select>
                                 @endforeach
+                                </select>
                                 @if ($errors->has('dept_id'))
                                     <span class="text-danger">{{ $errors->first('dept_id') }}</span>
                                 @endif
@@ -185,16 +184,12 @@
                             <div class="col-md-6">
                                 <select class="form-select @error('roles') is-invalid @enderror"  aria-label="Roles" id="roles" name="roles[]">
                                     @forelse ($roles as $role)
-
                                         @if ($role!='Super Admin')
                                             <option value="{{ $role }}" {{ in_array($role, old('roles') ?? []) ? 'selected' : '' }}>
                                                 {{ $role }}
                                             </option>
-
                                         @endif
-
                                     @empty
-
                                     @endforelse
                                 </select>
                                 @if ($errors->has('roles'))
@@ -202,11 +197,6 @@
                                 @endif
                             </div>
                         </div>
-
-
-
-
-
                         <div class="mb-3 row">
                             <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Employee">
                         </div>
