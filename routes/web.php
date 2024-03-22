@@ -41,5 +41,6 @@ Route::resources([
     'postes' => \App\Http\Controllers\PosteController::class,
     'depts' => \App\Http\Controllers\DeptController::class,
     'employees' => \App\Http\Controllers\EmployeeController::class,
+    'talents' => \App\Http\Controllers\TalentController::class,
 
 ]);
