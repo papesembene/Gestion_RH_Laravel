@@ -72,7 +72,7 @@
         <div class="header-profile d-flex align-items-center">
             <div class="dropdown">
                 <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
-                    <span class="user-name d-none d-md-block">Michelle White</span>
+                    <span class="user-name d-none d-md-block">{{Auth::user()->name}}</span>
                     <span class="avatar">
 									<img src="{{asset('assets/images/user7.png')}}" alt="Admin Templates" />
 									<span class="status online"></span>
