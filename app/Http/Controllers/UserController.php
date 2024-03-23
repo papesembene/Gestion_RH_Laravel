@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\NewUserWelcomeMail;
+use App\Models\ResetCodePassword;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Notifications\SendEmailToNewUser;
+use Exception;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
@@ -46,6 +51,7 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @throws Exception
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
@@ -53,9 +59,20 @@ class UserController extends Controller
         $input['password'] = Hash::make($request->password);
         $user = User::create($input);
         $user->assignRole($request->roles);
+
+        // Envoyer un e-mail de bienvenue au nouvel utilisateur
+        Mail::to($user->email)->send(new NewUserWelcomeMail($user));
         return redirect()->route('users.index')
             ->withSuccess('New user is added successfully.');
-    }
+
+
+
+        }
+
+
+
+
+
 
     /**
      * Display the specified resource.

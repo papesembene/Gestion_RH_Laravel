@@ -14,9 +14,13 @@ class SendEmailToNewUser extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+     public  $code;
+     public $email;
+
+    public function __construct($codeTosend,$emailTosend)
     {
-        //
+        $this->code = $codeTosend;
+        $this->email = $emailTosend;
     }
 
     /**
@@ -35,11 +39,18 @@ class SendEmailToNewUser extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+            ->subject('creation de compte')
+            ->line('BONJOUR')
+            ->line('Votre compte a ete cree avec succes sur la plateforme gestion RH
+            ')
+            ->line('Cliquez sur le bouton ci dessous pour valider
+            votre compte')
+            ->line('Saisissez le code'. $this->code .'et renseignez le dans le formulaire qui apparaitra')
+            ->action('Cliquez ici',
+                url('/users/edit' . '/' . $this->email))
+            ->line('Merci et Bonne Reception ');
 
+    }
     /**
      * Get the array representation of the notification.
      *
