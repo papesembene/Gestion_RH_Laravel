@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 use App\Mail\NewUserWelcomeMail;
-use App\Models\ResetCodePassword;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Notifications\SendEmailToNewUser;
 use Exception;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
@@ -59,16 +60,12 @@ class UserController extends Controller
         $input['password'] = Hash::make($request->password);
         $user = User::create($input);
         $user->assignRole($request->roles);
-
         // Envoyer un e-mail de bienvenue au nouvel utilisateur
         Mail::to($user->email)->send(new NewUserWelcomeMail($user));
         return redirect()->route('users.index')
             ->withSuccess('New user is added successfully.');
 
-
-
         }
-
 
 
 
@@ -140,4 +137,50 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->withSuccess('User is deleted successfully.');
     }
+
+    /**
+     * Affiche le formulaire d'édition du profil de l'utilisateur connecté.
+     */
+    public function editProfile($token)
+    {
+        // Décodez le token pour obtenir l'identifiant de l'utilisateur
+        $userId = Crypt::decrypt($token);
+
+        // Récupérez les informations de l'utilisateur
+        $user = User::findOrFail($userId);
+
+        // Passer le token à la vue
+        return view('users.edit_profile', compact('user', 'token'));
+    }
+    public function updateProfile(Request $request, $token)
+    {
+        // Décodez le token pour obtenir l'identifiant de l'utilisateur
+        $userId = Crypt::decrypt($token);
+
+        // Récupérez l'utilisateur à partir de l'identifiant
+        $user = User::findOrFail($userId);
+
+        // Validez les données soumises par le formulaire
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            // Ajoutez ici des règles de validation pour d'autres champs si nécessaire
+        ]);
+
+        // Mettez à jour les informations du profil de l'utilisateur avec les nouvelles données soumises
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            // Ajoutez ici d'autres champs à mettre à jour si nécessaire
+        ]);
+        //Connexion automatique de l'utilisateur après la mise à jour du profil
+       Auth::loginUsingId($user->id);
+       // Redirection de l'utilisateur vers une certaine page après la mise à jour du profil
+      return redirect()->route('home')->withSuccess('Votre profil a été mis à jour avec succès.');
+
+        // Redirigez l'utilisateur vers la page d'édition du profil avec un message de succès
+        //return redirect()->route('users.edit_profile', ['token' => $token])
+           // ->with('success', 'Votre profil a été mis à jour avec succès.');
+    }
+
 }
