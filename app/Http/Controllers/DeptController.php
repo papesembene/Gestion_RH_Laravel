@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Departement;
 use App\Models\Poste;
 use Illuminate\Http\Request;
-
 class DeptController extends Controller
 {
     /**
@@ -16,7 +15,6 @@ class DeptController extends Controller
         $depts = Departement::Paginate(5);
         return view('dept.index', compact('depts'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -24,7 +22,6 @@ class DeptController extends Controller
     {
         return view('dept.create');
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -35,13 +32,10 @@ class DeptController extends Controller
             'leader_id' => 'required|string|max:255',
             'supervisor_id' => 'required|string|max:255',
         ]);
-
         Departement::create($request->all());
-
-        return redirect()->route('depts.index')->with('success', 'Le Departement a été ajouté avec succès.');
+        return redirect()->route('depts.index')->with('success', 'Le Team a été ajouté avec succès.');
 
     }
-
     /**
      * Display the specified resource.
      */
@@ -49,7 +43,6 @@ class DeptController extends Controller
     {
         return view('dept.show', compact('dept'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -57,7 +50,6 @@ class DeptController extends Controller
     {
         return view('dept.edit', compact('dept'));
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -65,23 +57,19 @@ class DeptController extends Controller
     {
         $request->validate([
             'nom' => 'required|string|max:255',
-            'chef' => 'required|string|max:255',
+            'leader_id' => 'required|string|max:255',
+            'supervisor_id' => 'required|string|max:255',
         ]);
-
         Departement::update($request->all());
-
-        return redirect()->route('depts.index')->with('success', 'Le Departement a été modifie avec succès.');
+        return redirect()->route('depts.index')->with('success', 'Le Team a été modifie avec succès.');
 
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Departement $dept)
     {
         $dept->delete();
-
-        return redirect()->route('depts.index')->with('success', 'Le departement a été supprimé avec succès.');
-
+        return redirect()->route('depts.index')->with('success', 'Le Team a été supprimé avec succès.');
     }
 }
