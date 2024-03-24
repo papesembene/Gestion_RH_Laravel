@@ -24,7 +24,7 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="text" hidden name="user_id" value="{{ Auth::id() }}">
+                        <input type="text" hidden name="employee_id" value="{{ Auth::id() }}">
 
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Fin</label>

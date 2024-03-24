@@ -121,7 +121,7 @@ class EmployeeController extends Controller
             'dateembauche' => 'required|date',
             'type' => 'required|string|in:Stagiaire,Sous Contrat',
             'poste_id' => 'required|exists:postes,id',
-            'dept_id' => 'required|exists:departements,id',
+            'team_id' => 'string',
             'roles' => 'required|array',
         ]);
 
@@ -153,7 +153,7 @@ class EmployeeController extends Controller
             'dateembauche' => $validatedData['dateembauche'],
             'type' => $validatedData['type'],
             'poste_id' => $validatedData['poste_id'],
-            'dept_id' => $validatedData['dept_id'],
+            'team_id' => $validatedData['team_id'],
             'user_id' => $user->id,
         ]);
         $employee->save();

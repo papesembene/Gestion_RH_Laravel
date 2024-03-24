@@ -49,14 +49,14 @@ class CongesController extends Controller
             'datedebut' => 'required|date',
             'datefin' => 'required|date',
             'type_id' => 'required|exists:type_conges,id',
-            'user_id' => 'required',
+            'employee_id' => 'required',
         ]);
         // Création de la demande de congé
         $conge = new Conges();
         $conge->datedebut = $request->datedebut;
         $conge->datefin = $request->datefin;
         $conge->type_id = $request->type_id;
-        $conge->user_id = $request->user_id; // ID de l'utilisateur connecté
+        $conge->employee_id = $request->employee_id; // ID de l'utilisateur connecté
         $conge->status = 'En Attente'; // Statut par défaut
         $conge->save();
         // Redirection avec un message de succès

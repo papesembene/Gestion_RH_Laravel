@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Departement extends Model
 {
+    protected  $table = 'equipes';
     protected $fillable = ['nom', 'chef'];
 
     public function employees()

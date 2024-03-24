@@ -168,14 +168,14 @@
                         <div class="mb-3 row">
                             <label for="dept_id" class="col-md-4 col-form-label text-md-end text-start">Departement</label>
                             <div class="col-md-6">
-                                <select class="form-control @error('dept_id') is-invalid @enderror" id="dept_id" name="dept_id">
-                                    <option>...</option>
+                                <select class="form-control @error('team_id') is-invalid @enderror" id="team_id" name="team_id">
+                                    <option>Not team</option>
                                     @foreach(\App\Models\Departement::all() as $dept)
                                         <option value="{{$dept->id}}">{{$dept->nom}}</option>
                                 @endforeach
                                 </select>
-                                @if ($errors->has('dept_id'))
-                                    <span class="text-danger">{{ $errors->first('dept_id') }}</span>
+                                @if ($errors->has('team_id'))
+                                    <span class="text-danger">{{ $errors->first('team_id') }}</span>
                                 @endif
                             </div>
                         </div>
