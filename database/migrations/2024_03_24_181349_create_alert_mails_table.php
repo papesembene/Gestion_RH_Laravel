@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('conges', function (Blueprint $table) {
-            $table->string('status');
+        Schema::create('alert_mails', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Employee::class)->constrained('employees')->references('id')->on('employees')->onDelete('cascade');
+            $table->string('message');
+            $table->timestamps();
         });
     }
 
@@ -21,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conges');
+        Schema::dropIfExists('alert_mails');
     }
 };

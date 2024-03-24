@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Rules\MaxCongesPerPeriod;
 use Illuminate\Http\Request;
 use App\Models\Conges;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
 class CongesController extends Controller
 {
     /**
@@ -48,14 +45,14 @@ class CongesController extends Controller
         $request->validate([
             'datedebut' => 'required|date',
             'datefin' => 'required|date',
-            'type_id' => 'required|exists:type_conges,id',
-            'employee_id' => 'required',
+            'type_conges_id' => 'required|exists:type_conges,id',
+            'employee_id' => 'required|exists:users,id',
         ]);
         // Création de la demande de congé
         $conge = new Conges();
         $conge->datedebut = $request->datedebut;
         $conge->datefin = $request->datefin;
-        $conge->type_id = $request->type_id;
+        $conge->type_conges_id = $request->type_conges_id;
         $conge->employee_id = $request->employee_id; // ID de l'utilisateur connecté
         $conge->status = 'En Attente'; // Statut par défaut
         $conge->save();

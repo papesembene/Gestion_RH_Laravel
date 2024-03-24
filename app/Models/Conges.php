@@ -12,7 +12,7 @@ class Conges extends Model
 
     protected $fillable = [
         'status',
-        'type_id',
+        'type_conges_id',
         'employee_id',
         'datedebut',
         'datefin'

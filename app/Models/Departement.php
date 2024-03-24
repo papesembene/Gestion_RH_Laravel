@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Departement extends Model
 {
     protected  $table = 'equipes';
-    protected $fillable = ['nom', 'chef'];
+    protected $fillable = ['nom', 'leader_id','supervisor_id'];
 
-    public function employees()
+    public function employee()
     {
         return $this->hasMany(Employee::class);
+    }
+    public function supervisor()
+    {
+        return Employee::where('id', $this->supervisor_id)->first();
+    }
+
+    public function leader()
+    {
+        return Employee::where('id', $this->leader_id)->first();
     }
 
     public function postes()

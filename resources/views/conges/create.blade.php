@@ -1,5 +1,4 @@
 @extends('layouts.template')
-
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -9,23 +8,22 @@
                         Demande Conges
                     </div>
                     <div class="float-end">
-                        <a href="{{ route('conges.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                        <a href="{{ route('conges.index')}}" class="btn btn-primary btn-sm">&larr; Back</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('conges.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('conges.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Debut</label>
                             <div class="col-md-6">
                                 <input type="date" class="form-control @error('datedebut') is-invalid @enderror" id="datedebut" name="datedebut" value="{{ old('datedebut') }}">
                                 @if ($errors->has('datedebut'))
-                                    <span class="text-danger">{{ $errors->first('datedebut') }}</span>
+                                    <span class="text-danger">{{ $errors->first('datedebut')}}</span>
                                 @endif
                             </div>
                         </div>
-                        <input type="text" hidden name="employee_id" value="{{ Auth::id() }}">
-
+                        <input type="text" hidden name="employee_id" value="{{Auth::id()}}">
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Fin</label>
                             <div class="col-md-6">
@@ -38,23 +36,20 @@
                         <div class="mb-3 row">
                             <label for="type_id" class="col-md-4 col-form-label text-md-end text-start">Type de Conges</label>
                             <div class="col-md-6">
-                                <select class="form-control @error('type_id') is-invalid @enderror" id="type_id" name="type_id">
+                                <select class="form-control @error('type_conges_id') is-invalid @enderror" id="type_conges_id" name="type_conges_id">
                                     <option>...</option>
                                     @foreach(\App\Models\TypeConges::all() as $type)
                                         <option value="{{$type->id}}">{{$type->nom}}</option>
                                     @endforeach
                                 </select>
-                                @if ($errors->has('type_id'))
-                                    <span class="text-danger">{{ $errors->first('type_id') }}</span>
+                                @if ($errors->has('type_conges_id'))
+                                    <span class="text-danger">{{ $errors->first('type_conges_id') }}</span>
                                 @endif
                             </div>
                         </div>
-
-
                         <div class="mb-3 row">
                             <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Enregistrer">
                         </div>
-
                     </form>
                 </div>
             </div>

@@ -166,7 +166,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="dept_id" class="col-md-4 col-form-label text-md-end text-start">Departement</label>
+                            <label for="dept_id" class="col-md-4 col-form-label text-md-end text-start">Team</label>
                             <div class="col-md-6">
                                 <select class="form-control @error('team_id') is-invalid @enderror" id="team_id" name="team_id">
                                     <option>Not team</option>

@@ -32,7 +32,7 @@
                         @endcanany
                         @canany(['create-dept', 'edit-dept', 'delete-dept'])
                         <li>
-                            <a href="{{ route('depts.index') }}">Departements</a>
+                            <a href="{{ route('depts.index') }}">Teams</a>
                         </li>
                             @endcanany
                             @canany(['create-talent', 'edit-talent', 'delete-talent'])

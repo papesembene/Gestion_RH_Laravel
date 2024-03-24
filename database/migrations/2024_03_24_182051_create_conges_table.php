@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('conges', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->constrained('employees')->references('id')->cascadeOnDelete();
-            $table->foreignId('type_id')->constrained('type_conges')->references('id')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Employee::class)->constrained();
+            $table->foreignIdFor(\App\Models\TypeConges::class)->constrained();
+            //$table->foreignId('type_id')->constrained('type_conges');
             $table->string('datedebut');
             $table->string('datefin');
+            $table->string('status');
             $table->timestamps();
         });
     }

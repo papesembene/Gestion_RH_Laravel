@@ -32,7 +32,8 @@ class DeptController extends Controller
     {
         $request->validate([
             'nom' => 'required|string|max:255',
-            'chef' => 'required|string|max:255',
+            'leader_id' => 'required|string|max:255',
+            'supervisor_id' => 'required|string|max:255',
         ]);
 
         Departement::create($request->all());
