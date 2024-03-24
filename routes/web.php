@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +44,7 @@ Route::resources([
     'employees' => \App\Http\Controllers\EmployeeController::class,
     'talents' => \App\Http\Controllers\TalentController::class,
     'conges' => \App\Http\Controllers\CongesController::class,
-
 ]);
-
 Route::get('/profile/edit/{token}', [UserController::class,'editProfile'])->name('profile.edit');
 Route::put('/profile/update/{token}', [UserController::class,'updateProfile'])->name('profile.update');
 
