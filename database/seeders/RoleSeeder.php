@@ -21,7 +21,38 @@ class RoleSeeder extends Seeder
 
         // Attribution des permissions aux rôles
         // Super Admin a toutes les permissions
-        $admin->givePermissionTo(Permission::all());
+        $admin->givePermissionTo([
+            'create-role', // Créer un rôle
+            'edit-role', // Modifier un rôle
+            'delete-role', // Supprimer un rôle
+            // Permissions pour la gestion des utilisateurs
+            'create-user', // Créer un utilisateur
+            'edit-user', // Modifier un utilisateur
+            'delete-user', // Supprimer un utilisateur
+            // Permissions pour la gestion des employés
+            'create-employee', // Créer un employé
+            'edit-employee', // Modifier un employé
+            'delete-employee', // Supprimer un employé
+            'view-employee', // Voir les détails d'un employé
+            'view-employee-list', // Voir la liste des employés
+            'create-dept',
+            'delete-dept',
+            'edit-dept',
+            'create-poste',
+            'delete-poste',
+            'edit-poste',
+            'delete-conges',
+            'edit-conges',
+            'view-all-conges',
+            'delete-abscence',
+            'edit-abscence',
+            'create-talent',
+            'delete-talent',
+            'edit-talent',
+            // Autres permissions spécifiques à votre application
+            'view-employee-details', // Voir les détails spécifiques d'un employé
+            'view-employee-profile',
+        ]);
 
         // Gestionnaire a les permissions de gestion des employés et des utilisateurs
         $manager->givePermissionTo([
@@ -38,8 +69,11 @@ class RoleSeeder extends Seeder
             'create-poste',
             'delete-poste',
             'edit-poste',
-            'manage-employee-absence',
-            'manage-employee-contract',
+            'delete-conges',
+            'edit-conges',
+            'view-all-conges',
+            'delete-abscence',
+            'edit-abscence',
             'create-user',
             'edit-user',
             'delete-user',
@@ -48,6 +82,8 @@ class RoleSeeder extends Seeder
         // User Interne a seulement la permission de visualiser les détails des employés
         $user->givePermissionTo([
             'view-employee',
+            'create-conges',
+            'create-abscence'
         ]);
     }
 }

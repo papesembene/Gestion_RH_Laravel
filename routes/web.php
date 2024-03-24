@@ -42,6 +42,7 @@ Route::resources([
     'depts' => \App\Http\Controllers\DeptController::class,
     'employees' => \App\Http\Controllers\EmployeeController::class,
     'talents' => \App\Http\Controllers\TalentController::class,
+    'conges' => \App\Http\Controllers\CongesController::class,
 
 ]);
 

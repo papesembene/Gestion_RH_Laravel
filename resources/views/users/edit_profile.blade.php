@@ -1,7 +1,6 @@
 <form method="POST" action="{{ route('profile.update', ['token' => $token]) }}">
     @csrf
     @method('PUT')
-
     <!-- Champ de saisie pour le nom -->
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>

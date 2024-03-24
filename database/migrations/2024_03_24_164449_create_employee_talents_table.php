@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('conges', function (Blueprint $table) {
+        Schema::create('employee_talents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete();
-            $table->foreignId('type_id')->constrained('type_conges')->cascadeOnDelete();
-            $table->string('status');
-            $table->string('datedebut');
-            $table->string('datefin');
+            $table->foreignId('talent_id')->constrained('talents')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conges');
+        Schema::dropIfExists('employee_talents');
     }
 };

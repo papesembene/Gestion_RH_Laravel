@@ -40,18 +40,48 @@
                                     <a href="{{ route('talents.index') }}">Talents</a>
                                 </li>
                             @endcanany
+
                         <li>
-                            <a href="view-invoice.html">Documents</a>
+                            <a href="">Documents</a>
                         </li>
                         <li>
-                            <a href="invoice-list.html">Contrats</a>
+                            <a href="">Contrats</a>
                         </li>
                         <li>
-                            <a href="subscribers.html">Conges</a>
+                            <a href="">Abscences</a>
                         </li>
-                        <li>
-                            <a href="contacts.html">Abscences</a>
-                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="sidebar-dropdown">
+                <a href="#">
+                    <i class="bi bi-calendar4"></i>
+                    <span class="menu-text">Conges</span>
+                </a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        @canany('create-conges')
+                            <li>
+                                <a href="{{ route('conges.create') }}">
+                                    Demander un Congé
+                                </a>
+                            </li>
+                        @endcanany
+                            @canany('view-conges')
+                                <li>
+                                    <a href="{{ route('conges.index') }}">
+                                        Mes Demandes de Congés
+                                    </a>
+                                </li>
+                            @endcanany
+                            @canany('view-all-conges')
+                                <li>
+                                    <a href="{{ route('conges.index') }}">
+                                        Toutes les Demandes de Congés
+                                    </a>
+                                </li>
+                            @endcanany
+
                     </ul>
                 </div>
             </li>
@@ -63,15 +93,15 @@
                 <div class="sidebar-submenu">
                     <ul>
                         @canany(['create-role', 'edit-role', 'delete-role'])
-                        <li>
-                            <a href="{{ route('roles.index') }}">Profiles</a>
-                        </li>
+                            <li>
+                                <a href="{{ route('roles.index') }}">Profiles</a>
+                            </li>
                         @endcanany
                         @canany(['create-user', 'edit-user', 'delete-user'])
-                        <li>
-                            <a href="{{ route('users.index') }}">Users</a>
-                        </li>
-                            @endcanany
+                            <li>
+                                <a href="{{ route('users.index') }}">Users</a>
+                            </li>
+                        @endcanany
                         <li>
                             <a href="">Alerts</a>
                         </li>

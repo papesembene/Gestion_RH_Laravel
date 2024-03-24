@@ -34,20 +34,18 @@ class PermissionSeeder extends Seeder
             'create-poste',
             'delete-poste',
             'edit-poste',
+            'create-conges',
+            'delete-conges',
+            'edit-conges',
+            'view-all-conges',
+            'create-abscence',
+            'delete-abscence',
+            'edit-abscence',
             'create-talent',
             'delete-talent',
             'edit-talent',
-            'manage-employee-absence', // Gérer les absences des employés
-            'manage-employee-contract', // Gérer les contrats des employés
-            // Autres permissions spécifiques à votre application
             'view-employee-details', // Voir les détails spécifiques d'un employé
             'view-employee-profile', // Voir le profil complet d'un employé
-            'view-employee-salary', // Voir les informations sur le salaire d'un employé
-            'edit-employee-salary', // Modifier les informations sur le salaire d'un employé
-            'manage-employee-performance', // Gérer les évaluations de performance des employés
-            'manage-employee-training', // Gérer la formation des employés
-            'manage-employee-offboarding', // Gérer le processus de départ des employés
-
             // Ajoutez d'autres permissions au besoin
         ];
 

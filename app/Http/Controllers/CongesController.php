@@ -2,63 +2,133 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\MaxCongesPerPeriod;
 use Illuminate\Http\Request;
+use App\Models\Conges;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CongesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Afficher la liste des demandes de congé.
      */
     public function index()
     {
-        //
+        // Vérifier si l'utilisateur est un employé ou un administrateur
+        if (Auth::user()->hasRole(' Super Admin') ||Auth::user()->hasRole(' Gestionnaire') ) {
+            // Afficher toutes les demandes de congé pour l'administrateur
+            $conges = Conges::all();
+           // return view('conges.index', ['conges'=>$conges] );
+        } else if (Auth::user()->hasRole(' User Interne')) {
+            // Afficher uniquement les demandes de congé de l'utilisateur connecté
+            $conges = Conges::where('employee_id', Auth::id())->get();
+
+        }
+        return view('conges.index',
+            [
+            'conges'=>Conges::all()
+        ]
+        );
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Afficher le formulaire de création de demande de congé.
      */
     public function create()
     {
-        //
+        return view('conges.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistrer une nouvelle demande de congé dans la base de données.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'datedebut' => 'required|date',
+            'datefin' => 'required|date',
+            'type_id' => 'required|exists:type_conges,id',
+            'user_id' => 'required',
+        ]);
+        // Création de la demande de congé
+        $conge = new Conges();
+        $conge->datedebut = $request->datedebut;
+        $conge->datefin = $request->datefin;
+        $conge->type_id = $request->type_id;
+        $conge->user_id = $request->user_id; // ID de l'utilisateur connecté
+        $conge->status = 'En Attente'; // Statut par défaut
+        $conge->save();
+        // Redirection avec un message de succès
+        return redirect()->route('conges.index')->with('success', 'La demande de congé a été créée avec succès.');
+    }
+    public function show(Conges $conge)
+    {
+        // Vérifier si l'utilisateur connecté est autorisé à afficher cette demande de congé
+        if (Auth::id() === $conge->employee_id) {
+            return view('conges.show', compact('conge'));
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('conges.index')->with('error', 'Vous n\'êtes pas autorisé à afficher cette demande de congé.');
+    }
+    public function edit(Conges $conge)
+    {
+        // Vérifier si l'utilisateur connecté est autorisé à modifier cette demande de congé
+        if (Auth::id() === $conge->employee_id) {
+            return view('conges.edit', compact('conge'));
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('conges.index')->with('error', 'Vous n\'êtes pas autorisé à modifier cette demande de congé.');
     }
 
     /**
-     * Display the specified resource.
+     * Met à jour une demande de congé spécifique.
      */
-    public function show(string $id)
+    public function update(Request $request, Conges $conge)
     {
-        //
+        // Vérifier si l'utilisateur connecté est autorisé à modifier cette demande de congé
+        if (Auth::id() === $conge->employee_id) {
+            // Validation des données de formulaire
+            $request->validate([
+                'datedebut' => 'required|date',
+                'datefin' => 'required|date',
+                'type_id' => 'required',
+            ]);
+
+            // Mettre à jour la demande de congé
+            $conge->update([
+                'datedebut' => $request->datedebut,
+                'datefin' => $request->datefin,
+                'type_id' => $request->type_id,
+                'status' => 'En Attente',
+            ]);
+
+            // Rediriger avec un message de succès
+            return redirect()->route('conges.index')->with('success', 'Demande de congé mise à jour avec succès.');
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('conges.index')->with('error', 'Vous n\'êtes pas autorisé à modifier cette demande de congé.');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Supprime une demande de congé spécifique.
      */
-    public function edit(string $id)
+    public function destroy(Conges $conge)
     {
-        //
+        // Vérifier si l'utilisateur connecté est autorisé à supprimer cette demande de congé
+        if (Auth::id() === $conge->employee_id) {
+            // Supprimer la demande de congé
+            $conge->delete();
+
+            // Rediriger avec un message de succès
+            return redirect()->route('conges.index')->with('success', 'Demande de congé supprimée avec succès.');
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('conges.index')->with('error', 'Vous n\'êtes pas autorisé à supprimer cette demande de congé.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

@@ -24,9 +24,12 @@ return new class extends Migration
             $table->string('dateembauche');
             $table->string('type');
             $table->string('nationalite');
+            $table->string('CIN');
+            $table->string('situation_matrimoniale')->nullable();
+            $table->integer('nbrEnfants')->nullable();
             $table->foreignId('poste_id')->constrained('postes')->cascadeOnDelete();
-            $table->foreignId('dept_id')->constrained('departements')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('team_id')->nullable()->constrained('equipes')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conges extends Model
 {
     use HasFactory;
+    protected $table = 'conges';
 
     protected $fillable = [
         'status',
@@ -22,8 +23,9 @@ class Conges extends Model
         return $this->belongsTo(TypeConges::class);
     }
 
-    public function employees()
+
+    public function employee()
     {
-        return $this->belongsTo(Employee::class , );
+        return $this->belongsTo(Employee::class ,'employee_id' );
     }
 }
