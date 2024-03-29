@@ -18,7 +18,8 @@ return new class extends Migration
             //$table->foreignId('type_id')->constrained('type_conges');
             $table->string('datedebut');
             $table->string('datefin');
-            $table->string('status');
+            $table->string('leave_reason')->nullable();
+            $table->enum('status', ['Waiting', 'Accepted', 'Rejected'])->default('Waiting');
             $table->timestamps();
         });
     }

@@ -42,12 +42,14 @@ class CongesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $request->validate([
             'datedebut' => 'required|date',
             'datefin' => 'required|date',
             'type_conges_id' => 'required|exists:type_conges,id',
-            'employee_id' => 'required|exists:users,id',
+            'employee_id' => 'required|exists:employees,id',
         ]);
+
         // Création de la demande de congé
         $conge = new Conges();
         $conge->datedebut = $request->datedebut;

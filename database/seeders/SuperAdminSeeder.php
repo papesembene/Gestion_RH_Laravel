@@ -16,7 +16,7 @@ class SuperAdminSeeder extends Seeder
     {
         // Création de l'utilisateur Super Admin
         $superAdmin = User::create([
-            'name' => 'Pape Sembene', // Nom de l'utilisateur
+            'employee_id'=>null,
             'email' => 'pape@example.com', // Adresse email de l'utilisateur
             'password' => Hash::make('password'), // Mot de passe de l'utilisateur (assurez-vous de sécuriser correctement les mots de passe en production)
         ]);
@@ -24,7 +24,7 @@ class SuperAdminSeeder extends Seeder
 
         // Création de l'utilisateur User Interne
         $user = User::create([
-            'name' => 'Abdou Diallo', // Nom de l'utilisateur
+            'employee_id'=>null,
             'email' => 'abdou@example.com', // Adresse email de l'utilisateur
             'password' => Hash::make('password'), // Mot de passe de l'utilisateur
         ]);
@@ -32,7 +32,7 @@ class SuperAdminSeeder extends Seeder
 
         // Création de l'utilisateur Gestionnaire
         $manager = User::create([
-            'name' => 'Lamine Niang', // Nom de l'utilisateur
+            'employee_id'=>null,
             'email' => 'lamine@example.com', // Adresse email de l'utilisateur
             'password' => Hash::make('password'), // Mot de passe de l'utilisateur
         ]);

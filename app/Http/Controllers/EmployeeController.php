@@ -8,6 +8,7 @@ use App\Models\Poste;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
@@ -101,7 +102,7 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
 
         // Valider les données du formulaire
@@ -160,7 +161,53 @@ class EmployeeController extends Controller
 
         // Rediriger avec un message de succès
         return redirect()->route('employees.index')->with('success', 'Employee added successfully');
+    }*/
+    public function store(Request $request)
+    {
+        // Valider les données envoyées par le formulaire
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'sexe' => 'required|in:M,F',
+            'adresse' => 'required|string|max:255',
+            'phone' => 'required|numeric',
+            'datenaiss' => 'required|date',
+            'lieunaiss' => 'required|string|max:255',
+            'CIN' => 'required|string|max:255',
+            'situation_matrimoniale' => 'required|string|max:255',
+            'nbrEnfants' => 'required|numeric',
+            'nationalite' => 'required|string|max:255',
+            'dateembauche' => 'required|date',
+            'type' => 'required|string|max:255',
+            'poste_id' => 'required|exists:postes,id',
+            'team_id' => 'nullable|exists:equipes,id',
+        ]);
+
+        // Créer un nouvel employé à partir des données envoyées par le formulaire
+        $employee = Employee::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'sexe' => $request->sexe,
+            'adresse' => $request->adresse,
+            'phone' => $request->phone,
+            'datenaiss' => $request->datenaiss,
+            'lieunaiss' => $request->lieunaiss,
+            'CIN' => $request->CIN,
+            'situation_matrimoniale' => $request->situation_matrimoniale,
+            'nbrEnfants' => $request->nbrEnfants,
+            'nationalite' => $request->nationalite,
+            'dateembauche' => $request->dateembauche,
+            'type' => $request->type,
+            'poste_id' => $request->poste_id,
+            'team_id' => $request->team_id,
+        ]);
+
+        // Rediriger l'utilisateur vers la page d'index des employés avec un message de succès
+        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
+
+
+
 
 
 

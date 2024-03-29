@@ -33,6 +33,10 @@ class Employee extends Model
     {
         return $this->belongsTo(Poste::class);
     }
+    public function conges()
+    {
+        return $this->hasMany(Conges::class);
+    }
 
     public function departement()
     {

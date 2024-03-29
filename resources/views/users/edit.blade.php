@@ -18,11 +18,16 @@
                         @method("PUT")
 
                         <div class="mb-3 row">
-                            <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
+                            <label for="employee_id" class="col-md-4 col-form-label text-md-end text-start">Employee</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">
-                                @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                <select name="employee_id" id="" class="form-control">
+                                    <option value="">---choose Employee---</option>
+                                    @foreach(\App\Models\Employee::all() as $emp)
+                                        <option value="{{$emp->id}}" @selected($emp->id == $user->employee_id)>{{$emp->prenom}} {{$emp->nom}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('employee_id'))
+                                    <span class="text-danger">{{ $errors->first('employee_id') }}</span>
                                 @endif
                             </div>
                         </div>

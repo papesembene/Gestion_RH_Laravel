@@ -17,7 +17,7 @@
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start"><strong>Name:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{ $user->name }}
+                           {{$user->employee ? $user->employee->prenom:"Aucun employé associé"}}
                         </div>
                     </div>
 

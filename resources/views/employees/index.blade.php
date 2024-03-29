@@ -17,8 +17,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Nom</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -26,8 +26,8 @@
                             @foreach ($employees as $employee)
                                 <tr>
                                     <th scope="row">{{ $employee->id }}</th>
-                                    <td>{{ $employee->nom }} {{ $employee->prenom }}</td>
-                                    <td>{{ $employee->email }}</td>
+                                    <td>{{ $employee->nom }} </td>
+                                    <td>{{ $employee->prenom }} </td>
                                     <td>
                                         <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-primary btn-sm">View</a>
                                         <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-warning btn-sm">Edit</a>

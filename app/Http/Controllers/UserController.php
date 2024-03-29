@@ -57,6 +57,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): RedirectResponse
     {
         $input = $request->all();
+        $input['employee_id'] = $request['employee_id'];
         $input['password'] = Hash::make($request->password);
         $user = User::create($input);
         $user->assignRole($request->roles);
@@ -65,7 +66,7 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->withSuccess('New user is added successfully.');
 
-        }
+    }
 
 
 

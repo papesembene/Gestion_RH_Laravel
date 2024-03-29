@@ -8,6 +8,8 @@
 <body>
 <h2>Bienvenue sur notre application !</h2>
 <p>Bonjour {{ $user->name }},</p>
+<p>Email : {{ $user->email }},</p>
+<p>Password : {{ $user->password }},</p>
 <p>Votre compte sur notre application a été créé avec succès. Nous sommes ravis de vous accueillir parmi nous !</p>
 <p>Si vous souhaitez modifier vos informations ou mettre à jour votre profil, vous pouvez le faire en suivant ce lien :</p>
 <p><a href="{{ route('profile.edit', ['token' => Crypt::encrypt($user->id)]) }}">Modifier mes informations</a></p>

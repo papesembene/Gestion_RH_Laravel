@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('sexe');
-            $table->string('email')->unique();
             $table->string('adresse');
             $table->string('phone');
             $table->string('datenaiss');
@@ -27,9 +26,9 @@ return new class extends Migration
             $table->string('CIN');
             $table->string('situation_matrimoniale')->nullable();
             $table->integer('nbrEnfants')->nullable();
+            $table->string('photo')->nullable();
             $table->foreignId('poste_id')->constrained('postes')->cascadeOnDelete();
             $table->foreignId('team_id')->nullable()->constrained('equipes')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
