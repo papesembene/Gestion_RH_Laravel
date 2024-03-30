@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('documents.store') }}" method="post">
+                    <form action="{{ route('documents.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="employee_id" class="col-md-4 col-form-label text-md-end text-start">Employee</label>

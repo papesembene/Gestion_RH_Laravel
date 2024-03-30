@@ -111,7 +111,7 @@
                         @endcanany
                             @canany(['create-alert', 'edit-alert', 'delete-alert'])
                                 <li>
-                                    <a href="{{ route('users.index') }}">Alerts</a>
+                                    <a href="{{ route('alerts.index') }}">Alerts</a>
                                 </li>
                             @endcanany
 

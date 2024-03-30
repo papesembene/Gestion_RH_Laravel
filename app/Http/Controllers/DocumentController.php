@@ -26,7 +26,6 @@ class DocumentController extends Controller
         $employees = Employee::all();
         return view('documents.create');
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -38,16 +37,12 @@ class DocumentController extends Controller
             'fichier' => 'required|file|max:2048', // 2MB maximum file size
             'employee_id' => 'required|exists:employees,id'
         ]);
-
         // Get the uploaded file
-        $file = $request->file('file');
-
+        $file = $request->file('fichier');
         // Define the new file name
         $newFileName = time() . '_' . $file->extension(); // You can define your own logic here
-
         // Store the file with the new name in the storage directory
         $filePath = $file->storeAs('documents', $newFileName);
-
         // Create the document
         $document = new Documents([
             'type' => $validatedData['type'],
@@ -55,11 +50,9 @@ class DocumentController extends Controller
             'employee_id' => $validatedData['employee_id']
         ]);
         $document->save();
-
         // Redirect back with success message
         return redirect()->route('documents.index')->with('store', 'Document uploaded successfully.');
     }
-
     /**
      * Display the specified resource.
      */
@@ -118,8 +111,6 @@ class DocumentController extends Controller
         // Redirect back with success message
         return redirect()->route('documents.index')->with('upate', 'Document updated successfully.');
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -127,7 +118,6 @@ class DocumentController extends Controller
     {
         // Delete the document
         $document->delete();
-
         // Redirect back with success message
         return redirect()->route('documents.index')
             ->with('delete', 'Document deleted successfully.');
