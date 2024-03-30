@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Mail\NewUserWelcomeMail;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
@@ -58,6 +59,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $input['employee_id'] = $request['employee_id'];
+        $input['email'] = $request['email'];
         $input['password'] = Hash::make($request->password);
         $user = User::create($input);
         $user->assignRole($request->roles);
@@ -182,6 +184,23 @@ class UserController extends Controller
         // Redirigez l'utilisateur vers la page d'édition du profil avec un message de succès
         //return redirect()->route('users.edit_profile', ['token' => $token])
            // ->with('success', 'Votre profil a été mis à jour avec succès.');
+    }
+
+    public function getEmployeeDetails($id)
+    {
+        //récupérer les détails employee en fonction de l'ID
+
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return response()->json(['error' => 'employee not found'], 404);
+        }
+
+        return response()->json([
+            'nom' => $employee->nom,
+            'prenom' => $employee->prenom,
+            'email' => $employee->email,
+
+        ]);
     }
 
 }

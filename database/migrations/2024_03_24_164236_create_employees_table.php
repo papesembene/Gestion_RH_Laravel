@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('adresse');
             $table->string('phone');
+            $table->string('email')->unique();
             $table->string('datenaiss');
             $table->string('lieunaiss');
             $table->string('dateembauche');

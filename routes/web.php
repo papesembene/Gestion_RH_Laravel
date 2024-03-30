@@ -45,6 +45,8 @@ Route::resources([
     'talents' => \App\Http\Controllers\TalentController::class,
     'conges' => \App\Http\Controllers\CongesController::class,
 ]);
+
+Route::get('/employee/users/{id}', [\App\Http\Controllers\UserController::class, 'getEmployeeDetails']);
 Route::get('/profile/edit/{token}', [UserController::class,'editProfile'])->name('profile.edit');
 Route::put('/profile/update/{token}', [UserController::class,'updateProfile'])->name('profile.update');
 

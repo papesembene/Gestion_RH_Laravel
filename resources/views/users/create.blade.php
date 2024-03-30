@@ -15,11 +15,10 @@
                 <div class="card-body">
                     <form action="{{ route('users.store') }}" method="post">
                         @csrf
-
                         <div class="mb-3 row">
                             <label for="employee_id" class="col-md-4 col-form-label text-md-end text-start">Employee</label>
                             <div class="col-md-6">
-                                <select name="employee_id" id="" class="form-control">
+                                <select name="employee_id" id="employeeSelect" class="form-control">
                                     <option value="">---choose Employee---</option>
                                     @foreach(\App\Models\Employee::all() as $emp)
                                         <option value="{{$emp->id}}">{{$emp->prenom}} {{$emp->nom}}</option>
@@ -31,12 +30,15 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
+                            <label for="name" class="col-md-4 col-form-label text-md-end text-start">Full Name</label>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control " id="name" name="name" value="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
                             <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email Address</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}">
-                                @if ($errors->has('email'))
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                                @endif
+                                <input type="email" class="form-control " id="email" name="email" value="" readonly>
                             </div>
                         </div>
 
@@ -94,5 +96,25 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.getElementById('employeeSelect').addEventListener('change', function() {
+            let employee = this.value;
+            console.log(employee)
+            axios.get(`/employee/users/${employee}`)
+                .then(function(response) {
+                    let employeeDetails = response.data;
+                    document.getElementById('name').value = employeeDetails.prenom+' '+employeeDetails.nom ;
+                    document.getElementById('email').value = employeeDetails.email;
+                    console.log(data);
+                })
+                .catch(function(error) {
+                    console.error('Une erreur s\'est produite lors de la récupération des détails de lemployee :', error);
+                });
+        });
+    </script>
 @endsection
+
+
 
