@@ -42,7 +42,7 @@ class PosteController extends Controller
 
         Poste::create($request->all());
 
-        return redirect()->route('postes.index')->with('success', 'Le poste a été ajouté avec succès.');
+        return redirect()->route('postes.index')->with('store', 'Le poste a été ajouté avec succès.');
     }
 
     /**
@@ -82,7 +82,7 @@ class PosteController extends Controller
 
         $poste->update($request->all());
 
-        return redirect()->route('postes.index')->with('success', 'Le poste a été modifié avec succès.');
+        return redirect()->route('postes.index')->with('update', 'Le poste a été modifié avec succès.');
     }
 
     /**
@@ -95,6 +95,6 @@ class PosteController extends Controller
     {
         $poste->delete();
 
-        return redirect()->route('postes.index')->with('success', 'Le poste a été supprimé avec succès.');
+        return redirect()->route('postes.index')->with('delete', 'Le poste a été supprimé avec succès.');
     }
 }

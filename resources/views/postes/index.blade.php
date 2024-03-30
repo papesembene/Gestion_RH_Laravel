@@ -4,6 +4,15 @@
 
     <div class="card">
         <div class="card-header">Manage Postes</div>
+        @if (session('store'))
+            <alert class="alert alert-success"> {{session('store')}} </alert>
+        @endif
+        @if (session('update'))
+            <alert class="alert alert-secondary"> {{session('update')}} </alert>
+        @endif
+        @if (session('delete'))
+            <alert class="alert alert-danger"> {{session('delete')}} </alert>
+        @endif
         <div class="card-body">
             @can('create-user')
                 <a href="{{ route('postes.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Poste</a>

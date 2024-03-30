@@ -7,6 +7,15 @@
                     <div class="float-start">
                         Documents List
                     </div>
+                    @if (session('store'))
+                        <alert class="alert alert-success"> {{session('store')}} </alert>
+                    @endif
+                    @if (session('update'))
+                        <alert class="alert alert-secondary"> {{session('update')}} </alert>
+                    @endif
+                    @if (session('delete'))
+                        <alert class="alert alert-danger"> {{session('delete')}} </alert>
+                    @endif
                     <div class="float-end">
                         <a href="{{ route('documents.create') }}" class="btn btn-success btn-sm">Add New Document</a>
                     </div>

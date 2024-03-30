@@ -57,7 +57,7 @@ class DocumentController extends Controller
         $document->save();
 
         // Redirect back with success message
-        return redirect()->route('documents.index')->with('success', 'Document uploaded successfully.');
+        return redirect()->route('documents.index')->with('store', 'Document uploaded successfully.');
     }
 
     /**
@@ -116,7 +116,7 @@ class DocumentController extends Controller
         $document->save();
 
         // Redirect back with success message
-        return redirect()->route('documents.index')->with('success', 'Document updated successfully.');
+        return redirect()->route('documents.index')->with('upate', 'Document updated successfully.');
     }
 
 
@@ -130,6 +130,6 @@ class DocumentController extends Controller
 
         // Redirect back with success message
         return redirect()->route('documents.index')
-            ->with('success', 'Document deleted successfully.');
+            ->with('delete', 'Document deleted successfully.');
     }
 }

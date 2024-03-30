@@ -58,7 +58,7 @@ class CongesController extends Controller
         $conge->type_conges_id = $request->type_conges_id;
         $conge->save();
         // Redirection avec un message de succès
-        return redirect()->route('conges.index')->with('success', 'La demande de congé a été créée avec succès.');
+        return redirect()->route('conges.index')->with('store', 'La demande de congé a été créée avec succès.');
     }
     public function show(Conges $conge)
     {
@@ -104,7 +104,7 @@ class CongesController extends Controller
             ]);
 
             // Rediriger avec un message de succès
-            return redirect()->route('conges.index')->with('success', 'Demande de congé mise à jour avec succès.');
+            return redirect()->route('conges.index')->with('update', 'Demande de congé mise à jour avec succès.');
         }
 
         // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
@@ -122,7 +122,7 @@ class CongesController extends Controller
             $conge->delete();
 
             // Rediriger avec un message de succès
-            return redirect()->route('conges.index')->with('success', 'Demande de congé supprimée avec succès.');
+            return redirect()->route('conges.index')->with('delete', 'Demande de congé supprimée avec succès.');
         }
 
         // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé

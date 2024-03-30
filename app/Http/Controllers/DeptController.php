@@ -33,7 +33,7 @@ class DeptController extends Controller
             'supervisor_id' => 'required|string|max:255',
         ]);
         Departement::create($request->all());
-        return redirect()->route('depts.index')->with('success', 'Le Team a été ajouté avec succès.');
+        return redirect()->route('depts.index')->with('store', 'Le Team a été ajouté avec succès.');
 
     }
     /**
@@ -61,7 +61,7 @@ class DeptController extends Controller
             'supervisor_id' => 'required|string|max:255',
         ]);
         Departement::update($request->all());
-        return redirect()->route('depts.index')->with('success', 'Le Team a été modifie avec succès.');
+        return redirect()->route('depts.index')->with('update', 'Le Team a été modifie avec succès.');
 
     }
     /**
@@ -70,6 +70,6 @@ class DeptController extends Controller
     public function destroy(Departement $dept)
     {
         $dept->delete();
-        return redirect()->route('depts.index')->with('success', 'Le Team a été supprimé avec succès.');
+        return redirect()->route('depts.index')->with('delete', 'Le Team a été supprimé avec succès.');
     }
 }

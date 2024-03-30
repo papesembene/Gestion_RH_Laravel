@@ -86,7 +86,7 @@ class EmployeeController extends Controller
         ]);
 
         // Rediriger l'utilisateur vers la page d'index des employés avec un message de succès
-        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
+        return redirect()->route('employees.index')->with('store', 'Employee created successfully.');
     }
 
     /**
@@ -153,13 +153,13 @@ class EmployeeController extends Controller
         }
 
 
-        return redirect()->route('employees.index')->with('success', 'Employee updated successfully');
+        return redirect()->route('employees.index')->with('update', 'Employee updated successfully');
     }
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
         $employee->delete(); // Puis supprimer l'employé
-        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully');
+        return redirect()->route('employees.index')->with('delete', 'Employee deleted successfully');
     }
 
 

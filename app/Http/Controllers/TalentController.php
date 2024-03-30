@@ -37,7 +37,7 @@ class TalentController extends Controller
             'evaluation' => 'required|string|max:255',
         ]);
         Talent::create($request->all());
-        return redirect()->route('talents.index')->with('success', ' Le Talent a été ajouté avec succès.');
+        return redirect()->route('talents.index')->with('store', ' Le Talent a été ajouté avec succès.');
 
     }
 
@@ -69,7 +69,7 @@ class TalentController extends Controller
             'evaluation' => 'required|string|max:255',
         ]);
         Talent::update($request->all());
-        return redirect()->route('talents.index')->with('success', ' Le Talent a été ajouté avec succès.');
+        return redirect()->route('talents.index')->with('update', ' Le Talent a été ajouté avec succès.');
 
     }
 
@@ -79,7 +79,7 @@ class TalentController extends Controller
     public function destroy(Talent $talent)
     {
         $talent->delete();
-        return redirect()->route('talents.index')->with('success', 'Le Talent a été supprimé avec succès.');
+        return redirect()->route('talents.index')->with('delete', 'Le Talent a été supprimé avec succès.');
 
     }
 }
