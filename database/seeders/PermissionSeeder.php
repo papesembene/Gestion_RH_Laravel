@@ -40,6 +40,9 @@ class PermissionSeeder extends Seeder
             'create-document',
             'delete-document',
             'edit-document',
+            'create-contrat',
+            'delete-contrat',
+            'edit-contrat',
             'create-alert',
             'delete-alert',
             'edit-alert',
@@ -53,6 +56,7 @@ class PermissionSeeder extends Seeder
             'create-talent',
             'delete-talent',
             'edit-talent',
+            'view_dashboard',
             'view-employee-details', // Voir les détails spécifiques d'un employé
             'view-employee-profile', // Voir le profil complet d'un employé
             // Ajoutez d'autres permissions au besoin

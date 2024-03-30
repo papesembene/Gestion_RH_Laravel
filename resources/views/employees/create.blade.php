@@ -165,7 +165,7 @@
                             <div class="col-md-6">
                                 <label for="team_id" class="form-label">Team</label>
                                 <select class="form-control @error('team_id') is-invalid @enderror" id="team_id" name="team_id">
-                                    <option value="Not team">Not team</option>
+                                    <option value="">Not team</option>
                                     @foreach(\App\Models\Departement::all() as $dept)
                                         <option value="{{$dept->id}}" {{ old('team_id') == $dept->id ? 'selected' : '' }}>{{$dept->nom}}</option>
                                     @endforeach

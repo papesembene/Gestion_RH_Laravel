@@ -41,15 +41,22 @@
                                 </li>
                             @endcanany
 
-                        <li>
-                            <a href="">Documents</a>
-                        </li>
-                        <li>
-                            <a href="">Contrats</a>
-                        </li>
-                        <li>
-                            <a href="">Abscences</a>
-                        </li>
+                            @canany(['create-document', 'edit-document', 'delete-document'])
+                                <li>
+                                    <a href="{{ route('documents.index') }}">Documents</a>
+                                </li>
+                            @endcanany
+                            @canany(['create-contrat', 'edit-contrat', 'delete-contrat'])
+                                <li>
+                                    <a href="{{ route('contrats.index') }}">Contrats</a>
+                                </li>
+                            @endcanany
+
+                            @canany(['create-abscence', 'edit-abscence', 'delete-abscence'])
+                                <li>
+                                    <a href="{{ route('abscences.index') }}">Abscences</a>
+                                </li>
+                            @endcanany
                     </ul>
                 </div>
             </li>
@@ -102,9 +109,11 @@
                                 <a href="{{ route('users.index') }}">Users</a>
                             </li>
                         @endcanany
-                        <li>
-                            <a href="">Alerts</a>
-                        </li>
+                            @canany(['create-alert', 'edit-alert', 'delete-alert'])
+                                <li>
+                                    <a href="{{ route('users.index') }}">Alerts</a>
+                                </li>
+                            @endcanany
 
                     </ul>
                 </div>

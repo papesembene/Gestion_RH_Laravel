@@ -31,7 +31,7 @@
                 @forelse ($users as $user)
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
-                        <td>{{ $user->employee ? $user->employee->prenom." ".$user->employee->nom  : 'Aucun employé associé' }}</td>
+                        <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
                             @forelse ($user->getRoleNames() as $role)
