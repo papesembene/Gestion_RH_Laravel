@@ -107,7 +107,7 @@
                     let employeeDetails = response.data;
                     document.getElementById('name').value = employeeDetails.prenom+' '+employeeDetails.nom ;
                     document.getElementById('email').value = employeeDetails.email;
-                    console.log(data);
+                    //console.log(data);
                 })
                 .catch(function(error) {
                     console.error('Une erreur s\'est produite lors de la récupération des détails de lemployee :', error);

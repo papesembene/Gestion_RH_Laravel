@@ -23,7 +23,7 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="text" hidden name="employee_id" value="{{Auth::id()}}">
+                        <input type="text"  name="employee_id" value="{{Auth::user()->employee_id}}">
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Fin</label>
                             <div class="col-md-6">
@@ -31,6 +31,12 @@
                                 @if ($errors->has('datefin'))
                                     <span class="text-danger">{{ $errors->first('datefin') }}</span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="raison" class="col-md-4 col-form-label text-md-end text-start">Raisons</label>
+                            <div class="col-md-6">
+                                <textarea cols="7" rows="6" class="form-control" name="leave_reason"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 row">

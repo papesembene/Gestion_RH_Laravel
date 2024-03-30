@@ -17,16 +17,13 @@ class CongesController extends Controller
             // Afficher toutes les demandes de congé pour l'administrateur
             $conges = Conges::all();
            // return view('conges.index', ['conges'=>$conges] );
-        } else if (Auth::user()->hasRole(' User Interne')) {
+        } else {
             // Afficher uniquement les demandes de congé de l'utilisateur connecté
-            $conges = Conges::where('employee_id', Auth::id())->get();
-
+             $conges = Conges::where('employee_id', Auth::user()->employee_id)->get();
         }
-        return view('conges.index',
-            [
-            'conges'=>Conges::all()
-        ]
-        );
+
+
+        return view('conges.index',$conges);
     }
 
     /**
@@ -42,21 +39,23 @@ class CongesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //dd($request);
         $request->validate([
             'datedebut' => 'required|date',
             'datefin' => 'required|date',
+            'leave_reason' => 'nullable|string',
             'type_conges_id' => 'required|exists:type_conges,id',
             'employee_id' => 'required|exists:employees,id',
         ]);
-
         // Création de la demande de congé
         $conge = new Conges();
+        // Si un utilisateur est authentifié et associé à un employé, assigner l'ID de cet employé à la demande de congé
+        if (Auth::check()) {
+            $conge->employee_id = Auth::user()->employee_id;
+        }
         $conge->datedebut = $request->datedebut;
         $conge->datefin = $request->datefin;
         $conge->type_conges_id = $request->type_conges_id;
-        $conge->employee_id = $request->employee_id; // ID de l'utilisateur connecté
-        $conge->status = 'En Attente'; // Statut par défaut
         $conge->save();
         // Redirection avec un message de succès
         return redirect()->route('conges.index')->with('success', 'La demande de congé a été créée avec succès.');
