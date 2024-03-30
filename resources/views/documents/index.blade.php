@@ -27,7 +27,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Employee</th>
-                                <th scope="col">Nom</th>
+                                <th scope="col">Document</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -35,7 +35,7 @@
                             @foreach ($documents as $doc)
                                 <tr>
                                     <th scope="row">{{ $doc->id }}</th>
-                                    <td>{{ $doc->employee->nom }} </td>
+                                    <td> {{ $doc->employee->prenom }} {{ $doc->employee->nom }} </td>
                                     <td>{{ $doc->type }} </td>
                                     <td>
                                         <a href="{{ route('documents.show', $doc->id) }}" class="btn btn-primary btn-sm">View</a>

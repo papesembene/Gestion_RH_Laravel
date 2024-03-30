@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('conges.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('conges.store')}}" method="post">
                         @csrf
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Debut</label>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Enregistrer">
+                            <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Validate Leave">
                         </div>
                     </form>
                 </div>

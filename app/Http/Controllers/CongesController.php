@@ -7,10 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class CongesController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Conges::class, 'conges');
-    }
+
     /**
      * Afficher la liste des demandes de congé.
      */
@@ -43,7 +40,6 @@ class CongesController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
         $request->validate([
             'datedebut' => 'required|date',
             'datefin' => 'required|date',
