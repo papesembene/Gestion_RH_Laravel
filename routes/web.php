@@ -44,6 +44,7 @@ Route::resources([
     'employees' => \App\Http\Controllers\EmployeeController::class,
     'talents' => \App\Http\Controllers\TalentController::class,
     'conges' => \App\Http\Controllers\CongesController::class,
+    'documents' => \App\Http\Controllers\DocumentController::class,
 ]);
 
 Route::get('/employee/users/{id}', [\App\Http\Controllers\UserController::class, 'getEmployeeDetails']);
