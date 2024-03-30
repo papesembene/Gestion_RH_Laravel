@@ -13,7 +13,7 @@ class Documents extends Model
         'fichier',
         'employee_id'
     ];
-    public function employees()
+    public function employee()
     {
         return $this->belongsTo(Employee::class , );
     }
