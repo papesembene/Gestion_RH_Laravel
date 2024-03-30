@@ -25,7 +25,7 @@ class Employee extends Model
         'type',
         'nationalite',
         'poste_id',
-        'dept_id',
+        'team_id',
         'user_id',
     ];
 
@@ -40,7 +40,7 @@ class Employee extends Model
 
     public function departement()
     {
-        return $this->belongsTo(Departement::class);
+        return $this->belongsTo(Departement::class,);
     }
     public function user()
     {

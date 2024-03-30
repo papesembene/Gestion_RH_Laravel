@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Departement;
 use App\Models\Employee;
 use App\Models\Poste;
@@ -30,10 +29,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create'
-            , [
-                'roles' => Role::pluck('name')->all()
-            ]);
+        return view('employees.create');
     }
 
     /**
@@ -60,13 +56,21 @@ class EmployeeController extends Controller
             'type' => 'required|string|max:255',
             'poste_id' => 'required|exists:postes,id',
         ]);
-
+        // Traitement de l'upload de la photo
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $fileName = time() . '_' . $photo->getClientOriginalExtension(); // Utiliser getClientOriginalExtension() pour obtenir l'extension originale
+            $filePath = $photo->storeAs('photos', $fileName, 'public');
+        } else {
+            $filePath = null;
+        }
         // Créer un nouvel employé à partir des données envoyées par le formulaire
         $employee = Employee::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'sexe' => $request->sexe,
             'email' => $request->email,
+            'photo' => $filePath, // Chemin de la photo dans le système de fichiers
             'adresse' => $request->adresse,
             'phone' => $request->phone,
             'datenaiss' => $request->datenaiss,
@@ -85,10 +89,6 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
 
-
-
-
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -101,58 +101,63 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
-        $roles = Role::pluck('name')->all();
-        return view('employees.edit', compact('employee', 'roles'));
+        return view('employees.edit', compact('employee', ));
     }
 
     public function update(Request $request, $id)
     {
-        $employee = Employee::findOrFail($id);
-
-        $validatedData = $request->validate([
+        // Valider les données envoyées par le formulaire
+        $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
+            'email' => 'required|string|email',
+            'photo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sexe' => 'required|in:M,F',
             'adresse' => 'required|string|max:255',
-            'telephone' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($employee->user_id),
-            ],
+            'phone' => 'required|numeric',
             'datenaiss' => 'required|date',
             'lieunaiss' => 'required|string|max:255',
             'CIN' => 'required|string|max:255',
             'situation_matrimoniale' => 'required|string|max:255',
-            'nbrEnfants' => 'required|integer',
+            'nbrEnfants' => 'required|numeric',
             'nationalite' => 'required|string|max:255',
             'dateembauche' => 'required|date',
-            'type' => 'required|string|in:Stagiaire,Sous Contrat',
-            'poste_id' => ['required', Rule::exists(Poste::class, 'id')],
-            'dept_id' => ['required', Rule::exists(Departement::class, 'id')],
-            'roles' => 'required|array',
+            'type' => 'required|string|max:255',
+            'poste_id' => 'required|exists:postes,id',
         ]);
+        $employee = Employee::findOrFail($id);
 
-        // Mise à jour de l'utilisateur associé
-        $employee->user->update([
-            'name' => $validatedData['prenom'] . ' ' . $validatedData['nom'],
-            'email' => $validatedData['email'],
+        $employee->update([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'sexe' => $request->sexe,
+            'email' => $request->email,
+            'adresse' => $request->adresse,
+            'phone' => $request->phone,
+            'datenaiss' => $request->datenaiss,
+            'lieunaiss' => $request->lieunaiss,
+            'CIN' => $request->CIN,
+            'situation_matrimoniale' => $request->situation_matrimoniale,
+            'nbrEnfants' => $request->nbrEnfants,
+            'nationalite' => $request->nationalite,
+            'dateembauche' => $request->dateembauche,
+            'type' => $request->type,
+            'poste_id' => $request->poste_id,
+            'team_id' => $request->team_id,
         ]);
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $fileName = time() . '_' . $photo->getClientOriginalName();
+            $filePath = $photo->storeAs('photos', $fileName, 'public');
+            $employee->update(['photo' => $filePath]);
+        }
 
-        // Mise à jour des autres attributs de l'employé
-        $employee->update($validatedData);
-
-        // Mise à jour des rôles
-        $employee->user->syncRoles($validatedData['roles']);
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully');
     }
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
-        $employee->user->delete(); // Supprimer d'abord l'utilisateur associé
         $employee->delete(); // Puis supprimer l'employé
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully');
     }
