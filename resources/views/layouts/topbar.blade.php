@@ -25,45 +25,35 @@
         <!-- Header actions start -->
         <div class="header-actions d-xl-flex d-lg-none gap-4">
             <div class="dropdown">
+                @php
+                    $allRequests = app()->make('App\Http\Controllers\ShowMessages')->showAllMessages();
+                     $messageCount = $allRequests->count();
+                @endphp
                 <a class="dropdown-toggle" href="#!" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-envelope-open fs-5 lh-1"></i>
+                    @if($messageCount > 0)
+                        <span class="badge bg-danger">{{ $messageCount }}</span>
+                    @endif
                     <span class="count-label"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end shadow-lg">
-                    <div class="dropdown-item">
-                        <div class="d-flex py-2 border-bottom">
-                            <img src="{{asset('assets/images/user.png')}}" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
-                            <div class="m-0">
-                                <h6 class="mb-1 fw-semibold">Sophie Michiels</h6>
-                                <p class="mb-1">Membership has been ended.</p>
-                                <p class="small m-0 text-secondary">Today, 07:30pm</p>
+                    @foreach($allRequests as $request)
+                        <div class="dropdown-item">
+                            <div class="d-flex py-2 border-bottom">
+                                <div class="m-0">
+                                    <h6 class="mb-1 fw-semibold">{{ $request->typeConges->nom }}</h6>
+                                    <p class="mb-1">{{ $request->type_id }}</p>
+                                    <p class="mb-1">Statut  :{{ $request->status }}</p>
+                                    <p class="small m-0 text-secondary">{{ $request->created_at->format('F j, Y, g:i a') }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="dropdown-item">
-                        <div class="d-flex py-2 border-bottom">
-                            <img src="{{asset('assets/images/user2.png')}}" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
-                            <div class="m-0">
-                                <h6 class="mb-1 fw-semibold">Benjamin Michiels</h6>
-                                <p class="mb-1">Congratulate, James for new job.</p>
-                                <p class="small m-0 text-secondary">Today, 08:00pm</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dropdown-item">
-                        <div class="d-flex py-2">
-                            <img src="{{asset('assets/images/user1.png')}}" class="img-3x me-3 rounded-3" alt="Admin Dashboards" />
-                            <div class="m-0">
-                                <h6 class="mb-1 fw-semibold">Jehovah Roy</h6>
-                                <p class="mb-1">Lewis added new schedule release.</p>
-                                <p class="small m-0 text-secondary">Today, 09:30pm</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                     <div class="d-grid mx-3 my-1">
                         <a href="javascript:void(0)" class="btn btn-primary">View all</a>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- Header actions start -->

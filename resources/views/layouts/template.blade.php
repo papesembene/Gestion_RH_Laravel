@@ -85,21 +85,21 @@
                     <li>
                         <a href="javascript:void(0)">
                             <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
-                            <span>12 emails from David Michaiah.</span>
+                            <span>
+                                 @php
+                                     $allRequests = app()->make('App\Http\Controllers\ShowMessages')->showAllMessages();
+                                      $messageCount = $allRequests->count();
+                                 @endphp
+                                @if($messageCount > 0)
+                                   {{ $messageCount }} Messages recus {{date('')}}
+                                @endif
+                            </span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="bi bi-bar-chart text-blue font-1x me-2"></i>
-                            <span>15 new features updated successfully.</span>
-                        </a>
+
                     </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="bi bi-folder-check text-yellow font-1x me-2"></i>
-                            <span>The media folder is created successfully.</span>
-                        </a>
-                    </li>
+
                 </ul>
                 <!-- Live updates end -->
             </div>
