@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conges;
+use App\Models\Contrat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContratController extends Controller
 {
@@ -11,7 +14,18 @@ class ContratController extends Controller
      */
     public function index()
     {
-        //
+        // Vérifier si l'utilisateur est un employé ou un administrateur
+        if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Gestionnaire') ) {
+            // Afficher toutes les demandes de congé pour l'administrateur
+            $contrats = Contrat::all();
+            // return view('conges.index', ['conges'=>$conges] );
+        } else {
+            // Afficher uniquement les demandes de congé de l'utilisateur connecté
+            $contrats = Contrat::where('employee_id', Auth::user()->employee_id)->get();
+        }
+
+
+        return view('contrats.index',compact('contrats'));
     }
 
     /**
@@ -19,7 +33,7 @@ class ContratController extends Controller
      */
     public function create()
     {
-        //
+        return view('contrats.create');
     }
 
     /**
@@ -27,23 +41,53 @@ class ContratController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'datedebut' => 'required|date',
+            'datefin' => 'nullable|date',
+            'type_id' => 'required|exists:type_contrats,id',
+            'employee_id' => 'required|exists:employees,id',
+        ]);
+        // Création de la demande de congé
+        $con = new Contrat();
+        // Si un utilisateur est authentifié et associé à un employé, assigner l'ID de cet employé à la demande de congé
+        $con->employee_id = $request->employee_id;
+        $con->datedebut = $request->datedebut;
+        $con->datefin = $request->datefin;
+        $con->type_id = $request->type_id;
+        $con->save();
+        // Redirection avec un message de succès
+        return redirect()->route('contrats.index')->with('store', 'Le contrat a été créée avec succès.');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Contrat $con)
     {
-        //
+        // Vérifier si l'utilisateur connecté est autorisé à afficher cette demande de congé
+        if (Auth::id() === $con->employee_id) {
+            return view('contrat.show', compact('con'));
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('contrats.index')->with('error', 'Vous n\'êtes pas autorisé à afficher ceci.');
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Contrat $con)
     {
-        //
+        //Vérifier si l'utilisateur connecté est autorisé à modifier cette demande de congé
+        if (Auth::id() === $con->employee_id) {
+            return view('conges.edit', compact('con'));
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('contrats.index')->with('error', 'Vous n\'êtes pas autorisé à modifier ceci.');
+
     }
 
     /**
@@ -57,8 +101,37 @@ class ContratController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Contrat $con)
+    {
+        // Vérifier si l'utilisateur connecté est autorisé à supprimer cette demande de congé
+        if (Auth::id() === $con->employee_id) {
+            // Supprimer la demande de congé
+            $con->delete();
+
+            // Rediriger avec un message de succès
+            return redirect()->route('contrats.index')->with('delete', 'Demande  supprimée avec succès.');
+        }
+
+        // Rediriger avec un message d'erreur si l'utilisateur n'est pas autorisé
+        return redirect()->route('contrats.index')->with('error', 'Vous n\'êtes pas autorisé à supprimer cette demande .');
+
+    }
+    public function accept(string $id)
     {
         //
+        $con = Contrat::find($id);
+        $con->status = "Accepted";
+        $con->save();
+        return redirect()->route('contrats.index')
+            ->with('success', 'Conge accepted successfully');
+    }
+    public function refuse(string $id)
+    {
+        //
+        $con = Contrat::find($id);
+        $con->status = "Rejected";
+        $con->save();
+        return redirect()->route('contrats.index')
+            ->with('success', 'Conge refused successfully');
     }
 }

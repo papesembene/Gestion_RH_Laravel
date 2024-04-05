@@ -19,7 +19,11 @@ class Contrat extends Model
 
     public function typeContrat()
     {
-        return $this->belongsTo(TypeContrat::class);
+        return $this->belongsTo(TypeContrat::class,'type_id');
+    }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 
     public function employees()
