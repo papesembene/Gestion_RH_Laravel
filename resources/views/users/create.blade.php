@@ -32,13 +32,13 @@
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Full Name</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control " id="name" name="name" value="" readonly>
+                                <input type="text" class="form-control " id="name" name="name"  readonly>
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email Address</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control " id="email" name="email" value="" readonly>
+                                <input type="email" class="form-control " id="email" name="email" readonly>
                             </div>
                         </div>
 
@@ -62,7 +62,7 @@
                         <div class="mb-3 row">
                             <label for="roles" class="col-md-4 col-form-label text-md-end text-start">Roles</label>
                             <div class="col-md-6">
-                                <select class="form-select @error('roles') is-invalid @enderror" multiple aria-label="Roles" id="roles" name="roles[]">
+                                <select class="form-select @error('roles') is-invalid @enderror"  aria-label="Roles" id="roles" name="roles[]">
                                     @forelse ($roles as $role)
 
                                         @if ($role!='Super Admin')

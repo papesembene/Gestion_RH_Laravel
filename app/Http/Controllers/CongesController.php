@@ -14,7 +14,7 @@ class CongesController extends Controller
     public function index()
     {
         // Vérifier si l'utilisateur est un employé ou un administrateur
-        if (Auth::user()->hasRole(' Super Admin') ||Auth::user()->hasRole(' Gestionnaire') ) {
+        if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Gestionnaire') ) {
             // Afficher toutes les demandes de congé pour l'administrateur
             $conges = Conges::all();
            // return view('conges.index', ['conges'=>$conges] );
@@ -24,7 +24,7 @@ class CongesController extends Controller
         }
 
 
-        return view('conges.index',$conges);
+        return view('conges.index',compact('conges'));
     }
 
     /**

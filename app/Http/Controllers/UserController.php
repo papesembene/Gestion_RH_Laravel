@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Notifications\SendEmailToNewUser;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -16,7 +17,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     /**
@@ -55,20 +56,40 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      * @throws Exception
      */
-    public function store(StoreUserRequest $request): RedirectResponse
-    {
-        $input = $request->all();
-        $input['employee_id'] = $request['employee_id'];
-        $input['email'] = $request['email'];
-        $input['password'] = Hash::make($request->password);
-        $user = User::create($input);
-        $user->assignRole($request->roles);
-        // Envoyer un e-mail de bienvenue au nouvel utilisateur
-        Mail::to($user->email)->send(new NewUserWelcomeMail($user));
-        return redirect()->route('users.index')
-            ->withSuccess('New user is added successfully.');
+   
 
+public function store(Request $request)
+{
+    
+    // Validation des données
+     $request->validate([
+        'name' => 'string',
+        'employee_id' => 'required|exists:employees,id',
+        'email' => 'required|string|email:rfc,dns|max:250|unique:users,email',
+        'password' => 'required|string|confirmed',
+        'roles' => 'required'
+    ]);
+
+    // Récupérer le nom de l'employé
+    //$employee = Employee::findOrFail($employeeId);
+    //$name = $employee->prenom . ' ' . $employee->nom;
+    // Créer un nouvel utilisateur
+    $user = new User();
+    $user->name = $request['name'];
+    $user->email = $request['email'];
+    $user->password = Hash::make($request['password']);
+    $user->employee_id = $request['employee_id'];
+    // Enregistrer l'utilisateur
+    $user->save();
+    // Assigner les rôles à l'utilisateur
+    if ($request->has('roles')) {
+        $user->assignRole($request->roles);
     }
+    // Envoyer un e-mail de bienvenue au nouvel utilisateur
+    Mail::to($user->email)->send(new NewUserWelcomeMail($user));
+    return redirect()->route('users.index')->withSuccess('New user is added successfully.');
+}
+
 
 
 

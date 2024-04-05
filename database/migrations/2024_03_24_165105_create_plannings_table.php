@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->nullable()->constrained('employees');
             $table->foreignId('team_id')->nullable()->constrained('equipes');
-            $table->string('datedebut');
-            $table->string('datefin');
+            $table->date('datedebut');
+            $table->date('datefin');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->string('type');
-            $table->string('priorite')->default('Normal'); // les valeurs possibles sont Normal, Urgent, Très urgent
             $table->string('taches');
             $table->string('status')->default('En attente');
             $table->timestamps();

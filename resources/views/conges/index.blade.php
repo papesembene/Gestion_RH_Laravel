@@ -1,64 +1,61 @@
 @extends('layouts.template')
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-start">
-                        Leaves List
-                    </div>
-                    @if (session('store'))
-                        <alert class="alert alert-success"> {{session('store')}} </alert>
-                    @endif
-                    @if (session('update'))
-                        <alert class="alert alert-secondary"> {{session('update')}} </alert>
-                    @endif
-                    @if (session('delete'))
-                        <alert class="alert alert-danger"> {{session('delete')}} </alert>
-                    @endif
-                    <div class="float-end">
-                        <a href="{{ route('conges.create') }}" class="btn btn-success btn-sm">Add Conges</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if ($conges->count() > 0)
-                        <table class="table">
-                            <thead>
+    <div class="container m-lg-4">
+        <div class="card shadow-lg p-3 mb-5 bg-body-tertiary mt-5 ">
+            <div class="card-header">Conge List</div>
+            <div class="card-body">
+                <a href="{{ route('conges.create') }}" class="btn btn-primary btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Conge</a>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Employee</th>
+                        <th>Type Conge</th>
+                        <th>Date debut</th>
+                        <th>Date fin</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Gestionnaire'))
+                        @foreach($conges as $conge)
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Date Debut</th>
-                                <th scope="col">Date Fin</th>
-                                <th scope="col">Actions</th>
+                                <td>{{$conge->id}}</td>
+                                <td>{{$conge->employee->prenom}} {{$conge->employee->nom}} </td>
+                                <td>{{$conge->type_conges_id}}</td>
+                                <td>{{$conge->datedebut}}</td>
+                                <td>{{$conge->datefin}}</td>
+                                <td>{{$conge->status}}</td>
+                                <td>
+                                    @if($conge->status == 'Waiting' )
+                                       <!--  <a href="" class="btn btn-warning btn-sm">Valider</a>
+                                         <a href="" class="btn btn-danger btn-sm">Refuser</a>
+                                    @endif
+                                </td>-->
                             </tr>
-                            </thead>
-                            <tbody>
+                        @endforeach
+                        @else @if(Auth::user()->hasRole('User Interne'))
                             @foreach($conges as $conge)
                                 <tr>
-                                    <th scope="row">{{ $conge->id }}</th>
-                                    <td>{{$conge->employee->nom}} {{$conge->employee->prenom}}</td>
-                                    <td>{{ $conge->datedebut }}</td>
-                                    <td>{{ $conge->datefin }}</td>
+                                    <td>{{$conge->id}}</td>
+                                    <td>{{$conge->employee->prenom}} {{$conge->employee->nom}}</td>
+                                    <td>{{$conge->type_conges_id}}</td>
+                                    <td>{{$conge->datedebut}}</td>
+                                    <td>{{$conge->datefin}}</td>
+                                    <td>{{$conge->status}}</td>
                                     <td>
-                                        <a href="{{ route('conges.show', $conge->id) }}" class="btn btn-primary btn-sm">View</a>
-                                        <a href="{{ route('conges.edit', $conge->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('conges.destroy', $conge->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
-                                        </form>
-                                    </td>
+                                        @if($conge->status != '' )
+                                           
+                                        @endif
                                 </tr>
                             @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p>No Leaves found.</p>
-                    @endif
-                </div>
+                        @endif
+                        @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
 @endsection
 
