@@ -10,14 +10,7 @@
 
 
 
-            @canany(['create-employee', 'edit-employee', 'delete-employee'])
-            <li>
-                <a href="{{ route('employees.index') }}">
-                    <i class="bi bi-box"></i>
-                    <span class="menu-text">Employees</span>
-                </a>
-            </li>
-            @endcanany
+            
             <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-stickies"></i>
@@ -25,6 +18,14 @@
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
+                    @canany(['create-employee', 'edit-employee', 'delete-employee'])
+                    <li>
+                        <a href="{{ route('employees.index') }}">
+                            <i class="bi bi-box"></i>
+                            <span class="menu-text">Employees</span>
+                        </a>
+                    </li>
+                    @endcanany
                         @canany(['create-poste', 'edit-poste', 'delete-poste'])
                         <li>
                             <a href="{{ route('postes.index') }}">Postes</a>
@@ -118,7 +119,6 @@
                     </ul>
                 </div>
             </li>
-
             <li>
                 <a href="forgot-password.html">
                     <i class="bi bi-emoji-expressionless"></i>

@@ -174,6 +174,20 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="col-md-6">
+                                <label for="team_id" class="form-label">Talents</label>
+                                <select class="form-select @error('talents') is-invalid @enderror"  aria-label="talents" id="talents" name="talents[]" multiple>
+                                    @forelse (\App\Models\Talent::all() as $talent)
+                                                <option value="{{ $talent->id }}"{{ in_array($talent, old('talents') ?? []) ? 'selected' : '' }}>
+                                                    {{ $talent->nom}}
+                                                </option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                @if ($errors->has('talents'))
+                                    <span class="text-danger">{{ $errors->first('talents') }}</span>
+                                @endif
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-3">

@@ -50,6 +50,14 @@
                             {{ $employee->adresse}}
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start"><strong>Talents:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            @foreach ($employee->talents as $talent)
+                                {{ $talent->nom }},
+                            @endforeach
+                        </div>
+                    </div>
 
                 </div>
             </div>

@@ -10,10 +10,9 @@ class Talent extends Model
     use HasFactory;
     protected $table = 'talents';
     protected $fillable = [
-        'langue',
-        'competence',
-        'habilitation',
-        'evaluation',
+        'nom',
+        'type_talent',
+
     ];
 
     public function employees()

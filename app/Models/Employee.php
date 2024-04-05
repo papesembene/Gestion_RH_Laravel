@@ -37,6 +37,10 @@ class Employee extends Model
     {
         return $this->hasMany(Conges::class);
     }
+    public function talents()
+    {
+        return $this->belongsToMany(Talent::class, 'employee_talents');
+    }
 
     public function departement()
     {
@@ -48,10 +52,7 @@ class Employee extends Model
     }
 
 
-    public function talents()
-    {
-        return $this->hasMany(Talent::class,'talend_id');
-    }
+
 
 
 }

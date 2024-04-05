@@ -31,10 +31,9 @@ class TalentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'langue' => 'required|string|max:255',
-            'competence' => 'required|string|max:255',
-            'habilitation' => 'required|string|max:255',
-            'evaluation' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'type_talent' => 'required|string|max:255',
+
         ]);
         Talent::create($request->all());
         return redirect()->route('talents.index')->with('store', ' Le Talent a été ajouté avec succès.');
@@ -63,10 +62,9 @@ class TalentController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'langue' => 'required|string|max:255',
-            'competence' => 'required|string|max:255',
-            'habilitation' => 'required|string|max:255',
-            'evaluation' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'type_talent' => 'required|string|max:255',
+
         ]);
         Talent::update($request->all());
         return redirect()->route('talents.index')->with('update', ' Le Talent a été ajouté avec succès.');

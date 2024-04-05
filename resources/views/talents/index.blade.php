@@ -21,10 +21,8 @@
                 <thead>
                 <tr>
                     <th scope="col">S#</th>
-                    <th scope="col">Langue</th>
-                    <th scope="col">Competence</th>
-                    <th scope="col">Habilitation</th>
-                    <th scope="col">Evaluation</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -32,15 +30,12 @@
                 @forelse ($talents as $talent)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $talent->langue }}</td>
-                        <td>{{ $talent->competence }}</td>
-                        <td>{{ $talent->habilitation }}</td>
-                        <td>{{ $talent->evaluation }}</td>
+                        <td>{{ $talent->nom }}</td>
+                        <td>{{ $talent->type_talent }}</td>
                         <td>
                             <form action="{{ route('talents.destroy', $talent->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-
                                 <a href="{{ route('talents.show', $talent->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
                                 @can('edit-talent')
                                     <a href="{{ route('talents.edit', $talent->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
@@ -48,8 +43,6 @@
                                 @can('delete-talent')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this ?');"><i class="bi bi-trash"></i> Delete</button>
                                 @endcan
-
-
                             </form>
                         </td>
                     </tr>

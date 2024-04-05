@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('talents', function (Blueprint $table) {
             $table->id();
-            $table->string('langue');
-            $table->text('competence');
-            $table->string('habilitation');
-            $table->string('evaluation');
+            $table->string('nom');
+            $table->string('type_talent');
             $table->timestamps();
         });
     }

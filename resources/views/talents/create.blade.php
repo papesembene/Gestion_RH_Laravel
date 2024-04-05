@@ -15,41 +15,33 @@
                     <form action="{{ route('talents.store') }}" method="post">
                         @csrf
                         <div class="mb-3 row">
-                            <label for="nom" class="col-md-4 col-form-label text-md-end text-start">Langue</label>
+                            <label for="nom" class="col-md-4 col-form-label text-md-end text-start">Nom</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control @error('langue') is-invalid @enderror" id="langue" name="langue" value="{{ old('langue') }}">
-                                @if ($errors->has('langue'))
-                                    <span class="text-danger">{{ $errors->first('langue') }}</span>
+                                <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" value="{{ old('nom') }}">
+                                @if ($errors->has('nom'))
+                                    <span class="text-danger">{{ $errors->first('nom') }}</span>
                                 @endif
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="competence" class="col-md-4 col-form-label text-md-end text-start">Competence</label>
+                            <label for="competence" class="col-md-4 col-form-label text-md-end text-start">Talent</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control @error('competence') is-invalid @enderror" id="competence" name="competence" value="{{ old('competence') }}">
-                                @if ($errors->has('competence'))
-                                    <span class="text-danger">{{ $errors->first('competence') }}</span>
+                                <select class="form-control @error('type_talent') is-invalid @enderror" id="type_talent" name="type_talent">
+                                    <option value="">Sélectionner le type de talent</option>
+                                    <option value="Talent 1" {{ old('type_talent') == 'Talent 1' ? 'selected' : '' }}>Talent 1</option>
+                                    <option value="Talent 2" {{ old('type_talent') == 'Talent 2' ? 'selected' : '' }}>Talent 2</option>
+                                    <option value="Talent 3" {{ old('type_talent') == 'Talent 3' ? 'selected' : '' }}>Talent 3</option>
+                                    <!-- Ajoutez d'autres options selon vos besoins -->
+                                </select>
+                                @error('type_talent')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                @if ($errors->has('type_talent'))
+                                    <span class="text-danger">{{ $errors->first('type_talent') }}</span>
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-3 row">
-                            <label for="habilitation" class="col-md-4 col-form-label text-md-end text-start">Habilitation</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control @error('habilitation') is-invalid @enderror" id="habilitation" name="habilitation" value="{{ old('habilitation') }}">
-                            @if ($errors->has('habilitation'))
-                                    <span class="text-danger">{{ $errors->first('habilitation') }}</span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="evaluation" class="col-md-4 col-form-label text-md-end text-start">Evaluation</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control @error('evaluation') is-invalid @enderror" id="evaluation" name="evaluation" value="{{ old('evaluation') }}">
-                                @if ($errors->has('evaluation'))
-                                    <span class="text-danger">{{ $errors->first('evaluation') }}</span>
-                                @endif
-                            </div>
-                        </div>
+
 
                         <div class="mb-3 row">
                             <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Talent">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departement;
 use App\Models\Employee;
+use App\Models\Talent;
 use App\Models\Poste;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        $talents = Talent::all();
+        return view('employees.index', compact('employees'),compact('talents'));
     }
 
     /**
@@ -55,6 +57,7 @@ class EmployeeController extends Controller
             'dateembauche' => 'required|date',
             'type' => 'required|string|max:255',
             'poste_id' => 'required|exists:postes,id',
+            'talents'=>'array'
         ]);
         // Traitement de l'upload de la photo
         if ($request->hasFile('photo')) {
@@ -84,6 +87,10 @@ class EmployeeController extends Controller
             'poste_id' => $request->poste_id,
             'team_id' => $request->team_id,
         ]);
+        // Enregistrer les talents de l'employé dans la table pivot employee_talents
+        if ($request->has('talents')) {
+            $employee->talents()->sync($request->talents);
+        }
 
         // Rediriger l'utilisateur vers la page d'index des employés avec un message de succès
         return redirect()->route('employees.index')->with('store', 'Employee created successfully.');
