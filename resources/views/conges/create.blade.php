@@ -23,7 +23,23 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="text"  name="employee_id" value="{{Auth::user()->employee_id}}">
+                        @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Gestionnaire'))
+                        <div class="mb-3 row">
+                            <label for="employee_id" class="col-md-4 col-form-label text-md-end text-start">Employee</label>
+                            <div class="col-md-6">
+                                <select name="employee_id" id="employeeSelect" class="form-control">
+                                    <option value="">---choose Employee---</option>
+                                    @foreach(\App\Models\Employee::all() as $emp)
+                                        <option value="{{$emp->id}}">{{$emp->prenom}} {{$emp->nom}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('employee_id'))
+                                    <span class="text-danger">{{ $errors->first('employee_id') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        @endif
+                        <input type="text" hidden name="employee_id" value="{{Auth::user()->employee_id}}">
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Fin</label>
                             <div class="col-md-6">

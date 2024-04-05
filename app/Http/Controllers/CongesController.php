@@ -129,4 +129,23 @@ class CongesController extends Controller
         return redirect()->route('conges.index')->with('error', 'Vous n\'êtes pas autorisé à supprimer cette demande de congé.');
     }
 
+    public function accept(string $id)
+    {
+        //
+        $conge = Conges::find($id);
+        $conge->status = "Accepted";
+        $conge->save();
+        return redirect()->route('conges.index')
+            ->with('success', 'Conge accepted successfully');
+    }
+       public function refuse(string $id)
+       {
+           //
+           $conge = Conges::find($id);
+           $conge->status = "Rejected";
+           $conge->save();
+           return redirect()->route('conges.index')
+               ->with('success', 'Conge refused successfully');
+       }
+
 }

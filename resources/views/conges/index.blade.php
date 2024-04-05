@@ -14,7 +14,9 @@
                         <th>Date debut</th>
                         <th>Date fin</th>
                         <th>Status</th>
+                        @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Gestionnaire'))
                         <th>Action</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -29,10 +31,13 @@
                                 <td>{{$conge->status}}</td>
                                 <td>
                                     @if($conge->status == 'Waiting' )
-                                       <!--  <a href="" class="btn btn-warning btn-sm">Valider</a>
-                                         <a href="" class="btn btn-danger btn-sm">Refuser</a>
-                                    @endif
-                                </td>-->
+                                    <a href="{{ route('conges.accept', $conge->id) }}" class="btn btn-warning btn-sm">Valider</a>
+                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>   
+                                    @endif 
+                                    <a href="{{ route('conges.accept', $conge->id) }}" class="btn btn-warning btn-sm">Valider</a>
+                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>   
+                                </td>  
+                                </td>
                             </tr>
                         @endforeach
                         @else @if(Auth::user()->hasRole('User Interne'))
@@ -44,14 +49,11 @@
                                     <td>{{$conge->datedebut}}</td>
                                     <td>{{$conge->datefin}}</td>
                                     <td>{{$conge->status}}</td>
-                                    <td>
-                                        @if($conge->status != '' )
-                                           
-                                        @endif
+                                    
                                 </tr>
                             @endforeach
                         @endif
-                        @endif
+                     @endif
                     </tbody>
                 </table>
             </div>

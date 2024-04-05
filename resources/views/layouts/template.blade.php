@@ -51,11 +51,11 @@
 
             <!-- Sidebar brand starts -->
             <div class="brand">
-                <a href="#" class="logo">
-                    <img src="{{asset('assets/images/logo.svg')}}" class="d-none d-md-block me-4" alt="" />
-                    <img src="{{asset('assets/images/logo-sm.svg')}}" class="d-block d-md-none me-4" alt="" />
-                </a>
-            </div>
+    <a href="#" class="logo" style="color: white; text-decoration: none; font-weight: bold; font-size: 24px;">
+        RH SYSTEM
+    </a>
+</div>
+
             <!-- Sidebar brand ends -->
 
             <!-- Sidebar menu starts -->

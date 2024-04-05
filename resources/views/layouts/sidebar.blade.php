@@ -69,8 +69,8 @@
                     <ul>
                         @canany('create-conges')
                             <li>
-                                <a href="{{ route('conges.create') }}">
-                                    Demander un Congé
+                                <a href="{{ route('conges.index') }}">
+                                    Mes Demandes de Congés
                                 </a>
                             </li>
                         @endcanany

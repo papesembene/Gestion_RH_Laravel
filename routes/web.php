@@ -55,3 +55,6 @@ Route::get('/employee/users/{id}', [\App\Http\Controllers\UserController::class,
 Route::get('/profile/edit/{token}', [UserController::class,'editProfile'])->name('profile.edit');
 Route::put('/profile/update/{token}', [UserController::class,'updateProfile'])->name('profile.update');
 
+Route::get('/conges/accept/{id}',[\App\Http\Controllers\CongesController::class,'accept'])->name('conges.accept');
+Route::get('/conges/refuse/{id}',[\App\Http\Controllers\CongesController::class,'refuse'])->name('conges.refuse');
+
