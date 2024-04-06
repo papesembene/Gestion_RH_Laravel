@@ -24,13 +24,21 @@
                             </div>
                         </div>
                             <input type="hidden" name="employee_id" value="{{Auth::user()->employee_id}}">
-
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end text-start">Date Fin</label>
                             <div class="col-md-6">
                                 <input type="date" class="form-control @error('datefin') is-invalid @enderror" id="datefin" name="datefin" value="{{ old('datefin') }}">
                                 @if ($errors->has('datefin'))
                                     <span class="text-danger">{{ $errors->first('datefin') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="status" class="col-md-4 col-form-label text-md-end text-start">Status</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="En Attente" readonly>
+                                @if ($errors->has('status'))
+                                    <span class="text-danger">{{ $errors->first('status') }}</span>
                                 @endif
                             </div>
                         </div>

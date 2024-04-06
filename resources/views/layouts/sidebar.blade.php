@@ -22,7 +22,6 @@
                                 </a>
                             </li>
                         @endcanany
-
                             @canany(['team-planning'])
                                 <li>
                                     <a href="{{ route('team-planning') }}">
@@ -31,7 +30,6 @@
                                     </a>
                                 </li>
                             @endcanany
-
                             @canany(['create-employee', 'edit-employee', 'delete-employee'])
                                 <li>
                                     <a href="{{ route('employees.index') }}">
@@ -40,7 +38,6 @@
                                     </a>
                                 </li>
                             @endcanany
-
                             @canany(['create-poste', 'edit-poste', 'delete-poste'])
                                 <li>
                                     <a href="{{ route('postes.index') }}">
@@ -49,7 +46,6 @@
                                     </a>
                                 </li>
                             @endcanany
-
                             @canany(['create-planning', 'edit-planning', 'delete-planning'])
                                 <li>
                                     <a href="{{ route('plannings.index') }}">

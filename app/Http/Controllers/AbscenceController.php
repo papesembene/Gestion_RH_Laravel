@@ -53,24 +53,29 @@ class AbscenceController extends Controller
             'datedebut' => 'required|date|before:datefin|after_or_equal:today',
             'datefin' => 'required|date|after:datedebut',
             'motif' => 'nullable|string',
-            'status' => 'required|string',
+            'status' => 'required|string', // Assurez-vous de gérer ce champ dans votre formulaire
+            'employee_id' => 'required|exists:employees,id',
         ]);
 
         // Création de la demande d'absence
         $abs = new Abscence();
-        $abs->datedebut = $request->datedebut;
-        $abs->datefin = $request->datefin;
-        $abs->status = 'Waiting';
-        $abs->motif = $request->motif;
 
-        // Assigner l'ID de l'employé connecté à la demande d'absence
-        $abs->employee_id = Auth::user()->employee_id;
+        if (Auth::check()) {
+            $abs->employee_id = auth()->user()->employee_id;
+        } else {
+            // Gérer le cas où l'utilisateur n'est pas connecté
+        }
 
+        $abs->datedebut = $request->input('datedebut');
+        $abs->datefin = $request->input('datefin');
+        $abs->status = $request->input('status'); // Assurez-vous de récupérer la valeur de ce champ
+        $abs->motif = $request->input('motif');
         $abs->save();
 
         // Redirection avec un message de succès
         return redirect()->route('abscences.index')->with('store', 'La demande a été créée avec succès.');
     }
+
 
 
 

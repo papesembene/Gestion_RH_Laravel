@@ -41,14 +41,25 @@
                         <div class="dropdown-item">
                             <div class="d-flex py-2 border-bottom">
                                 <div class="m-0">
-                                    <h6 class="mb-1 fw-semibold">{{ $request->typeConges->nom }}</h6>
-                                    <p class="mb-1">{{ $request->type_id }}</p>
-                                    <p class="mb-1">Statut  :{{ $request->status }}</p>
+                                    <h6 class="mb-1 fw-semibold">
+                                        @if ($request instanceof \App\Models\Conges)
+                                            {{ $request->typeConges->nom }}
+                                        @elseif ($request instanceof \App\Models\Abscence)
+                                            {{ $request->motif }}
+                                        @endif
+                                    </h6>
+                                    @if ($request instanceof \App\Models\Conges)
+                                        <p class="mb-1">Type : {{ $request->typeConges->nom }}</p>
+                                    @elseif ($request instanceof \App\Models\Abscence)
+                                        <p class="mb-1">Motif : {{ $request->motif }}</p>
+                                    @endif
+                                    <p class="mb-1">Statut : {{ $request->status }}</p>
                                     <p class="small m-0 text-secondary">{{ $request->created_at->format('F j, Y, g:i a') }}</p>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
                     <div class="d-grid mx-3 my-1">
                         <a href="javascript:void(0)" class="btn btn-primary">View all</a>
                     </div>

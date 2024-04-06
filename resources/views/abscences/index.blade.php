@@ -30,7 +30,7 @@
                                 <td>{{$ab->datefin}}</td>
                                 <td>{{$ab->status}}</td>
                                 <td>
-                                    @if($conge->status == 'Waiting' )
+                                    @if($ab->status == 'En Attente' )
                                         <a href="{{ route('abscences.accept', $ab->id) }}" class="btn btn-warning btn-sm">Valider</a>
                                         <a href="{{ route('abscences.refuse', $ab->id) }}" class="btn btn-danger btn-sm">Refuser</a>
                                     @else

@@ -12,16 +12,18 @@ class ShowMessages extends Controller
     public function showAllMessages()
     {
 
-        // Récupérer les demandes de congés de l'utilisateur connecté
+        // Récupérer les demandes de congés de l'utilisateur connecté, y compris les statuts Accepted et Rejected
         $leaveRequests = Conges::where('employee_id', auth()->user()->employee_id)
-            ->where('status', 'Accepted')->get();
-
-        // Récupérer les demandes d'absences de l'utilisateur connecté
+            ->whereIn('status', ['Accepted', 'Rejected'])
+            ->get();
+// Récupérer les demandes d'absences de l'utilisateur connecté, y compris les statuts Accepted et Rejected
         $absenceRequests = Abscence::where('employee_id', auth()->user()->employee_id)
-            ->where('status', 'Accepted')->get();
+            ->whereIn('status', ['Accepted', 'Rejected'])
+            ->get();
 
-        // Fusionner les collections de demandes de congés et d'absences
+// Fusionner les collections de demandes de congés et d'absences
         $allRequests = $leaveRequests->merge($absenceRequests);
+
         //dd($leaveRequests);
         // Passer les demandes fusionnées à la vue
         // Passer les demandes fusionnées à la vue
