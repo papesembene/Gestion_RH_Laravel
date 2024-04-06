@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,4 +31,12 @@ class Contrat extends Model
     {
         return $this->belongsTo(Employee::class,);
     }
+    public function remainingDays()
+    {
+        // Convertir la datefin en objet Carbon
+        $datefin = Carbon::createFromFormat('Y-m-d', $this->datefin);
+        // Calculer les jours restants
+        return Carbon::now()->diffInDays($datefin);
+    }
+
 }

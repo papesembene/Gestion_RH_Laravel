@@ -50,8 +50,8 @@ class AbscenceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'datedebut' => 'required|date',
-            'datefin' => 'required|date',
+            'datedebut' => 'required|date|before:datefin|after_or_equal:today',
+            'datefin' => 'required|date|after:datedebut',
             'motif' => 'nullable|string',
             'status' => 'required|string',
         ]);

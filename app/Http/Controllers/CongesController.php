@@ -41,8 +41,8 @@ class CongesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'datedebut' => 'required|date',
-            'datefin' => 'required|date',
+            'datedebut' => 'required|date|before:datefin|after_or_equal:today',
+            'datefin' => 'required|date|after:datedebut',
             'leave_reason' => 'nullable|string',
             'type_conges_id' => 'required|exists:type_conges,id',
             'employee_id' => 'required|exists:employees,id',

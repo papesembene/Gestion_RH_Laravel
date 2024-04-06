@@ -60,6 +60,18 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            <label for="status" class="col-md-4 col-form-label text-md-end text-start">Statut</label>
+                            <div class="col-md-6">
+                                <select name="status" id="" class="form-control">
+                                        <option value="Active">Active </option>
+                                        <option value="Inactive">Inactive </option>
+                                </select>
+                                @if ($errors->has('status'))
+                                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="mb-3 row">
                             <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add Contract">

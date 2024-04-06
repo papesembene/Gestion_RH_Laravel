@@ -43,9 +43,9 @@ class ContratController extends Controller
     {
         $request->validate([
             'datedebut' => 'required|date',
-            'datefin' => 'nullable|date',
             'type_id' => 'required|exists:type_contrats,id',
             'employee_id' => 'required|exists:employees,id',
+            'status' => 'string',
         ]);
         // Création de la demande de congé
         $con = new Contrat();
@@ -54,6 +54,7 @@ class ContratController extends Controller
         $con->datedebut = $request->datedebut;
         $con->datefin = $request->datefin;
         $con->type_id = $request->type_id;
+        $con->status = $request->status;
         $con->save();
         // Redirection avec un message de succès
         return redirect()->route('contrats.index')->with('store', 'Le contrat a été créée avec succès.');

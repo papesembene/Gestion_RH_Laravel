@@ -86,16 +86,35 @@
                         <a href="javascript:void(0)">
                             <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
                             <span>
-                                 @php
-                                     $allRequests = app()->make('App\Http\Controllers\ShowMessages')->showAllMessages();
-                                      $messageCount = $allRequests->count();
-                                 @endphp
+            @php
+                $allRequests = app()->make('App\Http\Controllers\ShowMessages')->showAllMessages();
+                $messageCount = $allRequests->count();
+                $contractAlerts = app()->make('App\Http\Controllers\CheckContractExpirationController')->checkExpiringContracts();
+                $contractCount = count($contractAlerts);
+            @endphp
+
                                 @if($messageCount > 0)
-                                   {{ $messageCount }} Messages recus {{date('')}}
+                                    {{ $messageCount }} Messages reçus
                                 @endif
-                            </span>
+
+                                @if($contractCount > 0)
+                                    @if($messageCount > 0)
+                                        <br> <!-- Ajoutez un saut de ligne si un message a été affiché -->
+                                    @endif
+                                    {{ $contractCount }} Contrats expirant bientôt
+                                @endif
+
+                                @foreach($contractAlerts as $contract)
+                                    <br>
+                                    Contrat: {{ $contract->id }}
+                                    Jours restants: {{ $contract->remainingDays() }}
+                                @endforeach
+        </span>
                         </a>
                     </li>
+
+
+
                     <li>
 
                     </li>

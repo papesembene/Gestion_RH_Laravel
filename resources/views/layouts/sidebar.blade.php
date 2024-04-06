@@ -2,7 +2,7 @@
     <div class="sidebarMenuScroll">
         <ul>
             <li class="active-page-link">
-                <a href="index.html">
+                <a href="">
                     <i class="bi bi-house"></i>
                     <span class="menu-text">Dashboard</span>
                 </a>
@@ -90,7 +90,7 @@
                             @canany(['create-contrat', 'edit-contrat', 'delete-contrat'])
                                 <li>
                                     <a href="{{ route('contrats.index') }}">
-                                        <i class="bi bi-file-contract"></i>
+                                        <i class="bi bi-pencil"></i>
                                         <span class="menu-text">Contrats</span>
                                     </a>
                                 </li>

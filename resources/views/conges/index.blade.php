@@ -32,11 +32,12 @@
                                 <td>
                                     @if($conge->status == 'Waiting' )
                                     <a href="{{ route('conges.accept', $conge->id) }}" class="btn btn-warning btn-sm">Valider</a>
-                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>   
-                                    @endif 
+                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>
+                                    @else
                                     <a href="{{ route('conges.accept', $conge->id) }}" class="btn btn-warning btn-sm">Valider</a>
-                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>   
-                                </td>  
+                                     <a href="{{ route('conges.refuse', $conge->id) }}" class="btn btn-danger btn-sm">Refuser</a>
+                                    @endif
+                                </td>
                                 </td>
                             </tr>
                         @endforeach
@@ -49,7 +50,7 @@
                                     <td>{{$conge->datedebut}}</td>
                                     <td>{{$conge->datefin}}</td>
                                     <td>{{$conge->status}}</td>
-                                    
+
                                 </tr>
                             @endforeach
                         @endif
