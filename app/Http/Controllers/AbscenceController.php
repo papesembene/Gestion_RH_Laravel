@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AbscenceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:create-abscence|edit-abscence|delete-abscence', ['only' => ['index','show']]);
+        $this->middleware('permission:create-abscence', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-abscence', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete-abscence', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -46,24 +54,25 @@ class AbscenceController extends Controller
             'datefin' => 'required|date',
             'motif' => 'nullable|string',
             'status' => 'required|string',
-            'employee_id' => 'required|exists:employees,id',
         ]);
-        // Création de la demande de congé
+
+        // Création de la demande d'absence
         $abs = new Abscence();
-        // Si un utilisateur est authentifié et associé à un employé, assigner l'ID de cet employé à la demande de congé
-        if (Auth::check()) {
-            $abs->employee_id = Auth::user()->employee_id;
-        }
-        $abs->employe_id = $request->input('employee_id');
         $abs->datedebut = $request->datedebut;
         $abs->datefin = $request->datefin;
-        $abs->status= 'Waiting';
-        $abs->motif= $request->motif;
-        $abs->save();
-        // Redirection avec un message de succès
-        return redirect()->route('abscences.index')->with('store', 'La demande  a été créée avec succès.');
+        $abs->status = 'Waiting';
+        $abs->motif = $request->motif;
 
+        // Assigner l'ID de l'employé connecté à la demande d'absence
+        $abs->employee_id = Auth::user()->employee_id;
+
+        $abs->save();
+
+        // Redirection avec un message de succès
+        return redirect()->route('abscences.index')->with('store', 'La demande a été créée avec succès.');
     }
+
+
 
     /**
      * Display the specified resource.
