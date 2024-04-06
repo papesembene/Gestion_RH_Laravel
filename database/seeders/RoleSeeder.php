@@ -60,10 +60,13 @@ class RoleSeeder extends Seeder
             'edit-planning',
             'create-contrat',
             'delete-contrat',
+            'my-planning',
+            'team-planning',
             'edit-contrat',
             // Autres permissions spécifiques à votre application
             'view-employee-details', // Voir les détails spécifiques d'un employé
             'view-employee-profile',
+            'view_dashboard',
         ]);
 
         // Gestionnaire a les permissions de gestion des employés et des utilisateurs
@@ -102,12 +105,16 @@ class RoleSeeder extends Seeder
             'edit-abscence',
             'create-user',
             'edit-user',
+            'my-planning',
+            'team-planning',
             'delete-user',
         ]);
 
         // User Interne a seulement la permission de visualiser les détails des employés
         $user->givePermissionTo([
             'view-employee',
+            'my-planning',
+            'team-planning',
             'create-conges',
             'create-abscence'
         ]);

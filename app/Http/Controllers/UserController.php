@@ -5,14 +5,11 @@ use App\Mail\NewUserWelcomeMail;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Notifications\SendEmailToNewUser;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
@@ -56,11 +53,11 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      * @throws Exception
      */
-   
+
 
 public function store(Request $request)
 {
-    
+//dd($request);
     // Validation des données
      $request->validate([
         'name' => 'string',
@@ -69,21 +66,17 @@ public function store(Request $request)
         'password' => 'required|string|confirmed',
         'roles' => 'required'
     ]);
-
-    // Récupérer le nom de l'employé
-    //$employee = Employee::findOrFail($employeeId);
-    //$name = $employee->prenom . ' ' . $employee->nom;
     // Créer un nouvel utilisateur
     $user = new User();
+    $user->employee_id = $request['employee_id'];
     $user->name = $request['name'];
     $user->email = $request['email'];
     $user->password = Hash::make($request['password']);
-    $user->employee_id = $request['employee_id'];
     // Enregistrer l'utilisateur
     $user->save();
     // Assigner les rôles à l'utilisateur
     if ($request->has('roles')) {
-        $user->assignRole($request->roles);
+        $user->assignRole($request->input('roles'));
     }
     // Envoyer un e-mail de bienvenue au nouvel utilisateur
     Mail::to($user->email)->send(new NewUserWelcomeMail($user));
@@ -215,12 +208,10 @@ public function store(Request $request)
         if (!$employee) {
             return response()->json(['error' => 'employee not found'], 404);
         }
-
         return response()->json([
             'nom' => $employee->nom,
             'prenom' => $employee->prenom,
             'email' => $employee->email,
-
         ]);
     }
 

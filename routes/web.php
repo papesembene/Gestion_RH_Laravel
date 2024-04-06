@@ -58,7 +58,14 @@ Route::put('/profile/update/{token}', [UserController::class,'updateProfile'])->
 Route::get('/conges/accept/{id}',[\App\Http\Controllers\CongesController::class,'accept'])->name('conges.accept');
 Route::get('/conges/refuse/{id}',[\App\Http\Controllers\CongesController::class,'refuse'])->name('conges.refuse');
 
+Route::get('/abscences/accept/{id}',[\App\Http\Controllers\AbscenceController::class,'accept'])->name('conges.accept');
+Route::get('/abscences/refuse/{id}',[\App\Http\Controllers\AbscenceController::class,'refuse'])->name('conges.refuse');
 
 Route::get('/contrat/accept/{id}',[\App\Http\Controllers\ContratController::class,'accept'])->name('contrat.accept');
 Route::get('/contrat/refuse/{id}',[\App\Http\Controllers\ContratController::class,'refuse'])->name('contrat.refuse');
 
+Route::get('my-planning', [\App\Http\Controllers\PlanningController::class, 'planning'])
+    ->name('my-planning');
+
+Route::get('team-planning', [\App\Http\Controllers\PlanningController::class, 'teamPlanning'])
+    ->name('team-planning');

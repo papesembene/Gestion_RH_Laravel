@@ -66,12 +66,12 @@
                                     @forelse ($roles as $role)
 
                                         @if ($role!='Super Admin')
-                                            <option value="{{ $role }}" {{ in_array($role, old('roles') ?? []) ? 'selected' : '' }}>
+                                            <option value="{{ $role }}" {{in_array($role, old('roles') ?? []) ? 'selected' : ''}}>
                                                 {{ $role }}
                                             </option>
                                         @else
                                             @if (Auth::user()->hasRole('Super Admin'))
-                                                <option value="{{ $role }}" {{ in_array($role, old('roles') ?? []) ? 'selected' : '' }}>
+                                                <option value="{{ $role }}" {{in_array($role, old('roles') ?? []) ? 'selected' : ''}}>
                                                     {{ $role }}
                                                 </option>
                                             @endif
@@ -86,7 +86,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="mb-3 row">
                             <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Add User">
                         </div>

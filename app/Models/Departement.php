@@ -27,4 +27,9 @@ class Departement extends Model
     {
         return $this->hasMany(Poste::class);
     }
+
+    public function planning()
+    {
+        return $this->hasMany(Planning::class, 'team_id', 'id');
+    }
 }

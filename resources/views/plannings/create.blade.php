@@ -14,12 +14,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('employees.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('plannings.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-6">
                             <label for="poste_id" class="form-label">Employee</label>
                             <select class="form-control @error('employee_id') is-invalid @enderror" id="employee_id" name="employee_id">
-                                <option>...</option>
+                                <option></option>
                                 @foreach(\App\Models\Employee::all() as $emp)
                                     <option value="{{$emp->id}}" {{ old('employee_id') == $emp->id ? 'selected' : '' }}>  {{$emp->prenom}} {{$emp->nom}}</option>
                                 @endforeach
@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <label for="poste_id" class="form-label">Team</label>
                             <select class="form-control @error('team_id') is-invalid @enderror" id="team_id" name="team_id">
-                                <option>...</option>
+                                <option></option>
                                 @foreach(\App\Models\Departement::all() as $dept)
                                     <option value="{{$dept->id}}" {{ old('team_id') == $dept->id ? 'selected' : '' }}>  {{$dept->nom}}</option>
                                 @endforeach

@@ -42,9 +42,9 @@ class Employee extends Model
         return $this->belongsToMany(Talent::class, 'employee_talents');
     }
 
-    public function departement()
+    public function team()
     {
-        return $this->belongsTo(Departement::class,);
+        return $this->belongsTo(Departement::class,'');
     }
     public function user()
     {

@@ -57,6 +57,8 @@ class PermissionSeeder extends Seeder
             'delete-talent',
             'edit-talent',
             'view_dashboard',
+            'my-planning',
+            'team-planning',
             'view-employee-details', // Voir les détails spécifiques d'un employé
             'view-employee-profile', // Voir le profil complet d'un employé
             // Ajoutez d'autres permissions au besoin

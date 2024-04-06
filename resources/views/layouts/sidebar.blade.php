@@ -10,7 +10,7 @@
 
 
 
-            
+
             <li class="sidebar-dropdown">
                 <a href="#">
                     <i class="bi bi-stickies"></i>
@@ -18,6 +18,22 @@
                 </a>
                 <div class="sidebar-submenu">
                     <ul>
+                        @canany(['my-planning'])
+                            <li>
+                                <a href="{{ route('my-planning') }}">
+                                    <i class="bi bi-box"></i>
+                                    <span class="menu-text">Mon Planning</span>
+                                </a>
+                            </li>
+                        @endcanany
+                            @canany(['team-planning'])
+                                <li>
+                                    <a href="{{ route('team-planning') }}">
+                                        <i class="bi bi-box"></i>
+                                        <span class="menu-text">Team Planning</span>
+                                    </a>
+                                </li>
+                            @endcanany
                     @canany(['create-employee', 'edit-employee', 'delete-employee'])
                     <li>
                         <a href="{{ route('employees.index') }}">
@@ -30,6 +46,11 @@
                         <li>
                             <a href="{{ route('postes.index') }}">Postes</a>
                         </li>
+                        @endcanany
+                        @canany(['create-planning', 'edit-planning', 'delete-planning'])
+                            <li>
+                                <a href="{{ route('plannings.index') }}">Plannings</a>
+                            </li>
                         @endcanany
                         @canany(['create-dept', 'edit-dept', 'delete-dept'])
                         <li>
