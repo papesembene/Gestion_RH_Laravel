@@ -141,8 +141,8 @@
                                 <label for="type" class="form-label">Type</label>
                                 <select class="form-control @error('type') is-invalid @enderror" id="type" name="type">
                                     <option>...</option>
-                                    <option value="Stagiaire" {{ old('type') == 'Stagiaire' ? 'selected' : '' }}>Stagiaire</option>
-                                    <option value="Sous Contrat" {{ old('type') == 'Sous Contrat' ? 'selected' : '' }}>Sous Contrat</option>
+                                    <option value="CDD" {{ old('type') == 'CDD' ? 'selected' : '' }}>CDD</option>
+                                    <option value="CDI" {{ old('type') == 'CDI' ? 'selected' : '' }}>CDI</option>
                                 </select>
                                 @error('type')
                                 <span class="invalid-feedback">{{ $message }}</span>

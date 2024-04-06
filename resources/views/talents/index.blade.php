@@ -22,7 +22,6 @@
                 <tr>
                     <th scope="col">S#</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -31,7 +30,7 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $talent->nom }}</td>
-                        <td>{{ $talent->type_talent }}</td>
+
                         <td>
                             <form action="{{ route('talents.destroy', $talent->id) }}" method="post">
                                 @csrf
