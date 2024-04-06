@@ -13,7 +13,6 @@
                         <th>Type Contrats</th>
                         <th>Date debut</th>
                         <th>Date fin</th>
-                        <th>Status</th>
                         @if(Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Gestionnaire'))
                             <th>Action</th>
                         @endif
@@ -28,16 +27,19 @@
                                 <td>{{$con->typeContrat->nom}}</td>
                                 <td>{{$con->datedebut}}</td>
                                 <td>{{$con->datefin}}</td>
-                                <td>{{$con->status}}</td>
                                 <td>
-                                    @if($con->status == 'Waiting' )
-                                        <a href="{{ route('contrat.accept', $con->id) }}" class="btn btn-warning btn-sm">Valider</a>
-                                        <a href="{{ route('contrat.refuse', $con->id) }}" class="btn btn-danger btn-sm">Refuser</a>
-                                    @endif
-                                    <a href="{{ route('contrat.accept', $con->id) }}" class="btn btn-warning btn-sm">Valider</a>
-                                    <a href="{{ route('contrat.refuse', $con->id) }}" class="btn btn-danger btn-sm">Refuser</a>
+                                    <form action="" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
+                                        @can('edit-contrat')
+                                            <a href="" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                        @endcan
+                                        @can('delete-contrat')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this ?');"><i class="bi bi-trash"></i> Delete</button>
+                                        @endcan
+                                    </form>
                                 </td>
-
                             </tr>
                         @endforeach
                     @else @if(Auth::user()->hasRole('User Interne'))

@@ -46,7 +46,9 @@ class HomeController extends Controller
         // Récupérer le nombre d'agents CDD
         $cddAgents = TypeContrat::where('nom', 'CDD')->count();
 
-        return view('home', compact('totalAgents', 'totalUsers', 'userFunctions', 'cdiAgents', 'cddAgents'));
+        $others= TypeContrat::where('nom', 'Prestataire de service')->count();
+
+        return view('home', compact('totalAgents', 'totalUsers', 'userFunctions', 'cdiAgents', 'cddAgents','others'));
     }
 
 }

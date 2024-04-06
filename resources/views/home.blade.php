@@ -62,7 +62,7 @@
                 labels: ['CDD', 'CDI'],
                 datasets: [{
                     label: 'Nombre de Contrats',
-                    data: [{{$cddAgents}}, {{$cdiAgents}}],
+                    data: [{{$cddAgents}}, {{$cdiAgents,$others}}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)', // Rouge pour CDD
                         'rgba(54, 162, 235, 0.6)', // Bleu pour CDI
