@@ -12,4 +12,8 @@ class Planning extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+    public function team()
+    {
+        return $this->belongsTo(Departement::class,'team_id');
+    }
 }
